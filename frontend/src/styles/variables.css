@@ -1,0 +1,20 @@
+:root{
+  --bg:#f7f5f2;
+  --surface:#ffffff;
+  --surface2:#f0ede7;
+  --border:#e2d9ce;
+  --ink:#1c1712;
+  --ink2:#5a4e43;
+  --ink3:#9a8878;
+  --clay:#c8a882;
+  --terra:#c4694f;
+  --terra-dark:#a8553d;
+  --sage:#5c7e5f;
+  --risk-low:#16a34a;
+  --risk-mid:#d97706;
+  --risk-high:#dc2626;
+  --r:14px;
+  --r-sm:8px;
+  --sh:0 2px 16px rgba(28,23,18,.07);
+  --sh-lg:0 8px 40px rgba(28,23,18,.13);
+}

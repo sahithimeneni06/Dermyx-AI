@@ -1,0 +1,56 @@
+/* Product Analyzer Styles */
+.text-input-area {
+  margin: 20px 0;
+}
+
+.ingredients-textarea {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid var(--border);
+  border-radius: var(--r-sm);
+  font-size: .9rem;
+  line-height: 1.5;
+  resize: vertical;
+  background: var(--surface2);
+  transition: border-color .2s;
+}
+
+.ingredients-textarea:focus {
+  border-color: var(--terra);
+  outline: none;
+}
+
+.rating-guide {
+  margin-top: 24px;
+  padding: 16px;
+  background: var(--surface2);
+  border-radius: var(--r-sm);
+  font-size: .8rem;
+}
+
+.rating-guide h4 {
+  margin-bottom: 10px;
+  color: var(--ink);
+}
+
+.rating-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.rating-badge {
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: .7rem;
+  font-weight: 600;
+  color: white;
+  margin-right: 4px;
+}
+
+.rating-badge.best { background: #16a34a; }
+.rating-badge.good { background: #3b82f6; }
+.rating-badge.average { background: #d97706; }
+.rating-badge.bad { background: #dc2626; }
+.rating-badge.unknown { background: #6b7280; }

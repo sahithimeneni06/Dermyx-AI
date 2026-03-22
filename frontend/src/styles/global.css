@@ -1,0 +1,159 @@
+@import './variables.css';
+@import './animations.css';
+
+/* ===== RESET & BASE ===== */
+*,*::before,*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: #f7f5f2;
+  color: #1c1712;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+input, select, textarea {
+  font-family: inherit;
+}
+
+/* ===== LAYOUT ===== */
+.main {
+  max-width: 860px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 52px 20px 64px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 36px 0;
+  color: var(--ink3);
+  font-size: .82rem;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ===== SECTION CARD ===== */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 28px 28px 32px;
+  box-shadow: var(--sh);
+  margin-bottom: 28px;
+}
+
+.card-title {
+  font-size: 1.42rem;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.card-sub {
+  font-size: .86rem;
+  color: var(--ink2);
+  margin-bottom: 22px;
+}
+
+/* ===== FORM ELEMENTS ===== */
+.form-label {
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink2);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.txt-input {
+  flex: 1;
+  padding: 10px 13px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  font-size: .87rem;
+  background: var(--surface2);
+  color: var(--ink);
+  outline: none;
+  transition: border-color .18s;
+}
+
+.txt-input:focus {
+  border-color: var(--clay);
+}
+
+.sel-select {
+  width: 100%;
+  padding: 10px 13px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  font-size: .87rem;
+  background: var(--surface2);
+  color: var(--ink);
+  outline: none;
+  margin-bottom: 20px;
+  transition: border-color .18s;
+}
+
+.sel-select:focus {
+  border-color: var(--clay);
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width: 620px) {
+  .main {
+    padding: 52px 14px 52px;
+  }
+  
+  .card {
+    padding: 20px 18px 24px;
+  }
+}
+
+@media(max-width: 560px) {
+  .result-head {
+    flex-direction: column;
+  }
+  
+  .pred-row {
+    grid-template-columns: 110px 1fr 36px;
+  }
+}

@@ -1,0 +1,102 @@
+/* Skin Tone Analyzer Styles */
+.skin-tone-info {
+  background: var(--surface2);
+  border-radius: var(--r-sm);
+  padding: 16px;
+  margin-bottom: 22px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.info-item {
+  padding: 16px;
+  border-radius: 8px;
+  color: white;
+}
+
+.info-item.light-skin {
+  background: linear-gradient(135deg, #f8d5c0, #d99b6e);
+}
+
+.info-item.dark-skin {
+  background: linear-gradient(135deg, #8b5e3c, #5d3e2a);
+}
+
+.info-label {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.info-desc {
+  font-size: .85rem;
+  opacity: 0.9;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.info-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+}
+
+.info-list li {
+  font-size: .8rem;
+  padding: 4px 0;
+  position: relative;
+  padding-left: 18px;
+}
+
+.info-list li::before {
+  content: "•";
+  position: absolute;
+  left: 4px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.skin-tone-tips {
+  margin-top: 24px;
+  padding: 16px;
+  background: #f0f7ff;
+  border-radius: var(--r-sm);
+  border: 1px solid #cce5ff;
+}
+
+.skin-tone-tips h4 {
+  font-size: .9rem;
+  font-weight: 600;
+  color: #0056b3;
+  margin-bottom: 8px;
+}
+
+.skin-tone-tips ul {
+  list-style: none;
+  padding: 0;
+}
+
+.skin-tone-tips li {
+  font-size: .8rem;
+  color: var(--ink2);
+  padding: 4px 0 4px 20px;
+  position: relative;
+}
+
+.skin-tone-tips li::before {
+  content: "•";
+  color: #0056b3;
+  font-weight: bold;
+  position: absolute;
+  left: 6px;
+}
+
+@media (max-width: 560px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}

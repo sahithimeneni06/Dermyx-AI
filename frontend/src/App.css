@@ -1,0 +1,111 @@
+/* ── App Shell ──────────────────────────────────────── */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Hero ───────────────────────────────────────────── */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 100px 24px 72px;
+  text-align: center;
+  background: var(--ink);
+}
+
+.hero-content { position: relative; z-index: 2; max-width: 680px; margin: 0 auto; }
+
+.hero-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--clay);
+  margin-bottom: 16px;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  color: var(--cream);
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.hero-accent { color: var(--terracotta); font-style: italic; }
+
+.hero-desc {
+  font-size: 1.05rem;
+  color: #b8a898;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* Decorative circles */
+.hero-decoration { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.deco-circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.08;
+  background: var(--clay);
+}
+.c1 { width: 400px; height: 400px; top: -120px; right: -80px; }
+.c2 { width: 250px; height: 250px; bottom: -60px; left: -60px; background: var(--terracotta); }
+.c3 { width: 150px; height: 150px; top: 40px; left: 30%; }
+
+/* ── Main ───────────────────────────────────────────── */
+.main-content {
+  flex: 1;
+  max-width: 860px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+/* ── Divider ────────────────────────────────────────── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 40px 0;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+.divider::before, .divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── Results ────────────────────────────────────────── */
+.results-section {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* ── Footer ─────────────────────────────────────────── */
+.footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  border-top: 1px solid var(--border);
+  background: var(--surface-2);
+}
+
+/* ── Shared section title ───────────────────────────── */
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.section-sub {
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  margin-bottom: 24px;
+}

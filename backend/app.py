@@ -1,126 +1,81 @@
 # app.py
-import os
-import sys
-import logging
 from flask import Flask, jsonify
 from flask_cors import CORS
+import logging
+import sys
+import os
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-
 app = Flask(__name__)
-CORS(app, origins=["*"], supports_credentials=False)
+CORS(app)
 
-# Ensure folders exist
-os.makedirs("uploads", exist_ok=True)
-os.makedirs("models", exist_ok=True)
-
-# ============================================================================
-# Register all blueprints
-# ============================================================================
-
+# Register blueprints with error handling
 try:
     from routes.disease_routes import disease_bp
-    app.register_blueprint(disease_bp)
+    app.register_blueprint(disease_bp, url_prefix='/')
     logger.info("✅ disease_routes registered")
 except Exception as e:
-    logger.error(f"❌ Failed to register disease_routes: {e}", exc_info=True)
+    logger.error(f"❌ Failed to register disease_routes: {e}")
+    # Create a dummy blueprint for health check
+    from flask import Blueprint
+    disease_bp = Blueprint('disease', __name__)
+    
+    @disease_bp.route("/detect-disease", methods=["POST"])
+    def detect_disease_fallback():
+        return jsonify({
+            "success": False,
+            "error": "Model not available. Please train the model first."
+        }), 503
+    
+    @disease_bp.route("/health", methods=["GET"])
+    def health_fallback():
+        return jsonify({"status": "error", "message": "Model not loaded"}), 503
+    
+    app.register_blueprint(disease_bp, url_prefix='/')
+    logger.warning("⚠️ Using fallback disease routes (model not available)")
 
 try:
     from routes.symptom_routes import symptom_bp
-    app.register_blueprint(symptom_bp)
+    app.register_blueprint(symptom_bp, url_prefix='/')
     logger.info("✅ symptom_routes registered")
 except Exception as e:
-    logger.error(f"❌ Failed to register symptom_routes: {e}", exc_info=True)
+    logger.error(f"❌ Failed to register symptom_routes: {e}")
 
 try:
     from routes.product_routes import product_bp
-    app.register_blueprint(product_bp)
+    app.register_blueprint(product_bp, url_prefix='/')
     logger.info("✅ product_routes registered")
 except Exception as e:
-    logger.error(f"❌ Failed to register product_routes: {e}", exc_info=True)
+    logger.error(f"❌ Failed to register product_routes: {e}")
 
 try:
     from routes.recommend_routes import recommend_bp
-    app.register_blueprint(recommend_bp)
+    app.register_blueprint(recommend_bp, url_prefix='/')
     logger.info("✅ recommend_routes registered")
 except Exception as e:
-    logger.error(f"❌ Failed to register recommend_routes: {e}", exc_info=True)
+    logger.error(f"❌ Failed to register recommend_routes: {e}")
 
 try:
     from routes.skin_tone_routes import skin_tone_bp
-    app.register_blueprint(skin_tone_bp)
+    app.register_blueprint(skin_tone_bp, url_prefix='/')
     logger.info("✅ skin_tone_routes registered")
 except Exception as e:
-    logger.error(f"❌ Failed to register skin_tone_routes: {e}", exc_info=True)
+    logger.error(f"❌ Failed to register skin_tone_routes: {e}")
 
-
-# ============================================================================
-# Basic endpoints
-# ============================================================================
-
-@app.route("/")
-def home():
-    return jsonify({
-        "message": "Dermyx AI running 🚀",
-        "endpoints": {
-            "disease": "/detect-disease",
-            "symptom": "/analyze-symptoms",
-            "product": "/analyze-product",
-            "ingredients": "/analyze-ingredients",
-            "recommend": "/recommend",
-            "skin_tone": "/detect-skin-tone"
-        }
-    })
-
-
-@app.route("/health")
-def health():
-    import os
-    model_h5 = os.path.exists("models/skin_3class_model_new.h5")
-    model_pth = os.path.exists("models/best_skin_tone_model (1).pth")
+@app.route('/health', methods=['GET'])
+def health_check():
     return jsonify({
         "status": "ok",
-        "message": "Server is running",
-        "models": {
-            "disease_model": model_h5,
-            "skin_tone_model": model_pth
+        "services": {
+            "disease": disease_bp is not None,
+            "symptom": True,
+            "product": True,
+            "recommend": True,
+            "skin_tone": True
         }
-    })
+    }), 200
 
-
-@app.route("/test-predict")
-def test_predict():
-    return jsonify({"status": "working", "message": "API is ready"})
-
-
-# ============================================================================
-# Error handlers
-# ============================================================================
-
-@app.errorhandler(404)
-def not_found(e):
-    return jsonify({"error": "Endpoint not found", "message": str(e)}), 404
-
-
-@app.errorhandler(500)
-def server_error(e):
-    return jsonify({"error": "Internal server error", "message": str(e)}), 500
-
-
-if __name__ == "__main__":
-    logger.info("=" * 60)
-    logger.info("🚀 Starting Dermyx AI Server")
-    logger.info("=" * 60)
-    logger.info("Available endpoints:")
-    logger.info("  POST /detect-disease      - Skin disease detection")
-    logger.info("  POST /analyze-symptoms    - Symptom analysis")
-    logger.info("  POST /analyze-product     - Product ingredient analysis (image)")
-    logger.info("  POST /analyze-ingredients - Product ingredient analysis (text)")
-    logger.info("  POST /recommend           - Get recommendations")
-    logger.info("  POST /detect-skin-tone    - Skin tone detection")
-    logger.info("  GET  /health              - Health check")
-    logger.info("=" * 60)
-    app.run(debug=True, port=5000, use_reloader=False)
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=5000)

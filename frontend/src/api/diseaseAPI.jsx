@@ -49,6 +49,13 @@ const detectDisease = async (file) => {
 
   const data = await response.json();
   console.log('📦 RAW Detection result from backend:', data);
+  
+  // ✅ IMPORTANT: Return the nested data object
+  if (data.success && data.data) {
+    console.log('✅ Extracted data from response:', data.data);
+    return data.data;
+  }
+  
   return data;
 };
 
@@ -80,18 +87,19 @@ const fetchRecommendations = async (conditionName, symptoms = []) => {
 
 // Main export: detect → recommend → merge
 export const analyzeImage = async (file, symptoms = []) => {
-  // Step 1 — detect
+  // Step 1 — detect (now returns the data object directly)
   const detectionResult = await detectDisease(file);
   
   // 🔥 CRITICAL: Log what we got from backend
-  console.log('🔥 BACKEND RESULT:', detectionResult);
+  console.log('🔥 BACKEND RESULT (after extraction):', detectionResult);
   console.log('🔥 CONDITION:', detectionResult.condition);
   console.log('🔥 DISPLAY_NAME:', detectionResult.display_name);
   console.log('🔥 CATEGORY:', detectionResult.category);
+  console.log('🔥 CONFIDENCE:', detectionResult.confidence);
 
+  // ✅ Now detectionResult has condition directly
   const conditionName = detectionResult.condition || detectionResult.category || 'normal';
-  const displayName =
-    detectionResult.display_name ||
+  const displayName = detectionResult.display_name ||
     conditionName.replace('_', ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 
   // Step 2 — recommend
@@ -147,6 +155,7 @@ export const analyzeImage = async (file, symptoms = []) => {
   console.log('✅ FINAL RESULT TO SAVE:', finalResult);
   console.log('✅ CONDITION IN FINAL RESULT:', finalResult.condition);
   console.log('✅ DISPLAY_NAME IN FINAL RESULT:', finalResult.display_name);
+  console.log('✅ CONFIDENCE IN FINAL RESULT:', finalResult.confidence);
   
   // 🔥 IMPORTANT: Save to localStorage with the correct key
   localStorage.setItem('diseaseResult', JSON.stringify(finalResult));
@@ -157,6 +166,7 @@ export const analyzeImage = async (file, symptoms = []) => {
   if (saved) {
     const parsed = JSON.parse(saved);
     console.log('💾 VERIFICATION - Saved condition:', parsed.condition);
+    console.log('💾 VERIFICATION - Saved display_name:', parsed.display_name);
   }
   
   return finalResult;

@@ -4,399 +4,283 @@ import tensorflow as tf
 from tensorflow.keras.applications.efficientnet import preprocess_input
 from tensorflow.keras.utils import load_img, img_to_array
 from services.recommend_service import SkinDiseaseRecommender
-import random
 import logging
-from PIL import Image
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # ==============================
-# PATHS
+# CONFIG
 # ==============================
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MODEL_PATH = os.path.join(BASE_DIR, "models", "skin_3class_model.h5")
 
-# Try alternative model paths if main one doesn't exist
-ALTERNATIVE_PATHS = [
-    MODEL_PATH,
-    os.path.join(BASE_DIR, "models", "skin_3class_model_new.h5"),
-    os.path.join(BASE_DIR, "models", "best_model.h5"),
-    os.path.join(BASE_DIR, "skin_3class_model.h5"),
+# ✅ Use the H5 model we just created
+MODEL_PATH = os.path.join(BASE_DIR, "models", "skin_model_9class.h5")
+
+# Verify model exists
+if not os.path.exists(MODEL_PATH):
+    raise RuntimeError(f"❌ Model not found at {MODEL_PATH}. Please run create_test_model.py first.")
+
+logger.info(f"📁 Using model: {MODEL_PATH}")
+
+# ⚠️ MUST MATCH TRAINING ORDER - 9 CLASSES
+CLASS_NAMES = [
+    'acne', 'eczema', 'melanoma', 'vitiligo', 
+    'urticaria', 'contact_dermatitis', 'rash', 
+    'fungal', 'normal'
 ]
 
-# ==============================
-# CLASS NAMES (VERY IMPORTANT)
-# ==============================
-CLASS_NAMES = ['allergy', 'disease', 'normal']
+# Display names for frontend
+DISPLAY_NAMES = {
+    'acne': 'Acne',
+    'eczema': 'Eczema',
+    'melanoma': 'Melanoma',
+    'vitiligo': 'Vitiligo',
+    'urticaria': 'Urticaria (Hives)',
+    'contact_dermatitis': 'Contact Dermatitis',
+    'rash': 'General Rash',
+    'fungal': 'Fungal Infection',
+    'normal': 'Normal Skin'
+}
+
+# Category mapping for UI styling
+CATEGORY_MAPPING = {
+    # Allergies (shown with orange styling)
+    'urticaria': 'allergy',
+    'contact_dermatitis': 'allergy',
+    'rash': 'allergy',
+    
+    # Diseases (shown with red styling)
+    'acne': 'disease',
+    'eczema': 'disease',
+    'melanoma': 'disease',
+    'vitiligo': 'disease',
+    'fungal': 'disease',
+    
+    # Normal (shown with green styling)
+    'normal': 'normal'
+}
+
+# Risk levels matching frontend RISK_COLORS
+RISK_LEVELS = {
+    'acne': {'level': 'MODERATE', 'requires_doctor': False},
+    'eczema': {'level': 'MODERATE', 'requires_doctor': False},
+    'melanoma': {'level': 'HIGH', 'requires_doctor': True},
+    'vitiligo': {'level': 'MODERATE', 'requires_doctor': True},
+    'urticaria': {'level': 'MODERATE', 'requires_doctor': False},
+    'contact_dermatitis': {'level': 'LOW-MODERATE', 'requires_doctor': False},
+    'rash': {'level': 'LOW-MODERATE', 'requires_doctor': False},
+    'fungal': {'level': 'MODERATE', 'requires_doctor': False},
+    'normal': {'level': 'LOW', 'requires_doctor': False}
+}
+
+# Emergency messages for high-risk conditions
+EMERGENCY_MESSAGES = {
+    'melanoma': {
+        'message': '⚠️ HIGH RISK: This appears to be a potential melanoma',
+        'action': 'Please consult a dermatologist immediately for proper diagnosis and treatment.'
+    }
+}
 
 # ==============================
-# LOAD MODEL WITH FALLBACK
+# GLOBAL MODEL (LAZY LOAD)
 # ==============================
 model = None
-loaded_model_path = None
+recommender = None
 
-for path in ALTERNATIVE_PATHS:
-    if os.path.exists(path):
-        try:
-            logger.info(f"📦 Attempting to load model from: {path}")
-            logger.info(f"   File size: {os.path.getsize(path) / (1024*1024):.2f} MB")
-            
-            # Try loading with custom objects if needed
-            model = tf.keras.models.load_model(path, compile=False)
-            loaded_model_path = path
-            logger.info(f"✅ Model loaded successfully from: {path}")
-            break
-        except Exception as e:
-            logger.error(f"❌ Failed to load model from {path}: {e}")
-            continue
 
-if model is None:
-    logger.error("❌ Could not load model from any path. Will use heuristic-only mode.")
-    # Create a dummy model that always returns normal (fallback)
-    class DummyModel:
-        def predict(self, x, verbose=0):
-            # Return high confidence for normal
-            return np.array([[0.1, 0.1, 0.8]])
+def load_model():
+    """Load the H5 model"""
+    global model
     
-    model = DummyModel()
-    logger.info("⚠️ Using dummy model (always predicts normal)")
-
-# ==============================
-# INIT RECOMMENDER
-# ==============================
-try:
-    recommender = SkinDiseaseRecommender()
-    logger.info("✅ Recommender initialized successfully")
-except Exception as e:
-    logger.error(f"❌ Failed to initialize recommender: {e}")
-    recommender = None
-
-# ==============================
-# IMAGE FEATURE ANALYSIS
-# ==============================
-def analyze_image_features(img_path):
-    """Extract image features to help with condition mapping"""
+    logger.info(f"📦 Loading model from: {MODEL_PATH}")
+    logger.info(f"🐍 TensorFlow version: {tf.__version__}")
+    
     try:
-        img = Image.open(img_path).convert("RGB").resize((224, 224))
-        arr = np.array(img)
-
-        r = arr[:, :, 0].mean()
-        g = arr[:, :, 1].mean()
-        b = arr[:, :, 2].mean()
-
-        brightness = (r + g + b) / 3
-        redness = r - (g + b) / 2
-        variance = arr.std()
-
-        logger.info(f"Image features - Brightness: {brightness:.2f}, Redness: {redness:.2f}, Variance: {variance:.2f}")
+        # Load the H5 model - this should work with TF 2.12
+        model = tf.keras.models.load_model(MODEL_PATH, compile=False)
+        logger.info("✅ Model loaded successfully!")
         
-        return brightness, redness, variance
+        # Print model summary for debugging
+        model.summary(line_length=100)
+        
+        return model
     except Exception as e:
-        logger.error(f"Error analyzing image features: {e}")
-        return 128, 0, 50  # Default values
+        logger.error(f"❌ Failed to load model: {e}")
+        raise RuntimeError(f"Cannot load model: {e}")
+
+
+def load_resources():
+    """Load model and recommender once"""
+    global model, recommender
+
+    if model is None:
+        model = load_model()
+        logger.info(f"✅ Model ready with {len(CLASS_NAMES)} classes")
+        logger.info(f"📊 Classes: {CLASS_NAMES}")
+
+    if recommender is None:
+        try:
+            recommender = SkinDiseaseRecommender()
+            logger.info("✅ Recommender initialized")
+        except Exception as e:
+            logger.warning(f"⚠️ Recommender initialization failed: {e}")
+            recommender = None
 
 
 # ==============================
-# SMART MAPPING WITH WEIGHTS
+# HELPER FUNCTIONS
 # ==============================
-def pick_condition(category, img_path):
-    """Pick specific condition using weighted random based on image features"""
-    brightness, redness, variance = analyze_image_features(img_path)
-
-    # ---------- DISEASE ----------
-    if category == "disease":
-        options = ["acne", "eczema", "melanoma", "vitiligo"]
-        weights = []
-
-        for cond in options:
-            if cond == "acne":
-                weight = 0.3 + (redness / 100)
-            elif cond == "eczema":
-                weight = 0.3 + (variance / 100)
-            elif cond == "melanoma":
-                weight = 0.3 + ((150 - brightness) / 100)
-            else:  # vitiligo
-                weight = 0.3 + (brightness / 150)
-
-            weights.append(max(weight, 0.1))
-
-        total = sum(weights)
-        weights = [w / total for w in weights]
+def preprocess_single_image(image_path):
+    """Preprocess image for prediction"""
+    try:
+        img = load_img(image_path, target_size=(224, 224))
+        arr = img_to_array(img)
         
-        selected = random.choices(options, weights=weights, k=1)[0]
-        logger.info(f"Selected disease: {selected} with weights: {dict(zip(options, weights))}")
-        return selected
-
-    # ---------- ALLERGY ----------
-    elif category == "allergy":
-        options = ["urticaria", "contact_dermatitis", "fungal", "rash"]
-        weights = []
-
-        for cond in options:
-            if cond == "urticaria":
-                weight = 0.3 + (redness / 100)
-            elif cond == "fungal":
-                weight = 0.3 + (variance / 100)
-            elif cond == "contact_dermatitis":
-                weight = 0.3 + (redness / 120)
-            else:  # rash
-                weight = 0.3
-
-            weights.append(max(weight, 0.1))
-
-        total = sum(weights)
-        weights = [w / total for w in weights]
+        # Normalize pixel values to [0, 1] for the simple CNN model
+        # Note: This is different from EfficientNet's preprocess_input
+        arr = arr / 255.0
         
-        selected = random.choices(options, weights=weights, k=1)[0]
-        logger.info(f"Selected allergy: {selected} with weights: {dict(zip(options, weights))}")
-        return selected
+        arr = np.expand_dims(arr, axis=0)
+        return arr
+    except Exception as e:
+        raise ValueError(f"Failed to preprocess image: {e}")
 
-    return "normal"
 
-# ==============================
-# FALLBACK RECOMMENDATIONS
-# ==============================
-def get_fallback_recommendations(disease):
-    """Fallback recommendations when recommender fails"""
-    fallback_recs = {
-        'acne': {
-            "products": [
-                {"name": "Salicylic Acid Cleanser", "brand": "Neutrogena", "score": 0.88},
-                {"name": "Benzoyl Peroxide Gel", "brand": "Clean & Clear", "score": 0.85},
-                {"name": "Adapalene Gel", "brand": "Differin", "score": 0.82}
-            ],
-            "food": {
-                "eat": [
-                    {"name": "Zinc-rich foods", "reason": "Helps reduce inflammation"},
-                    {"name": "Omega-3 fatty acids", "reason": "Anti-inflammatory properties"}
-                ],
-                "avoid": [
-                    {"name": "Dairy products", "reason": "May trigger acne"},
-                    {"name": "High glycemic foods", "reason": "Can increase inflammation"}
-                ]
-            },
-            "precautions": [
-                "Wash face twice daily with gentle cleanser",
-                "Don't pop or squeeze pimples",
-                "Use non-comedogenic products",
-                "Avoid touching your face"
-            ],
-            "risk_level": "MODERATE",
-            "requires_doctor": False
-        },
-        'eczema': {
-            "products": [
-                {"name": "Ceramide Moisturizer", "brand": "CeraVe", "score": 0.92},
-                {"name": "Colloidal Oatmeal Cream", "brand": "Aveeno", "score": 0.88},
-                {"name": "Hydrocortisone Cream", "brand": "Cortizone-10", "score": 0.85}
-            ],
-            "food": {
-                "eat": [
-                    {"name": "Anti-inflammatory foods", "reason": "Reduce inflammation"},
-                    {"name": "Probiotics", "reason": "Support gut health"}
-                ],
-                "avoid": [
-                    {"name": "Dairy", "reason": "Common trigger"},
-                    {"name": "Eggs", "reason": "May trigger flare-ups"}
-                ]
-            },
-            "precautions": [
-                "Moisturize immediately after bathing",
-                "Avoid harsh soaps and detergents",
-                "Use lukewarm water for bathing",
-                "Wear soft, breathable fabrics"
-            ],
-            "risk_level": "MODERATE-HIGH",
-            "requires_doctor": True
-        },
-        'melanoma': {
-            "products": [],
-            "food": {"eat": [], "avoid": []},
-            "precautions": [
-                "🚨 SEEK IMMEDIATE MEDICAL ATTENTION",
-                "Do not attempt to treat at home",
-                "Visit a dermatologist immediately"
-            ],
-            "risk_level": "HIGH",
-            "requires_doctor": True,
-            "emergency": {
-                "message": "⚠️ URGENT: Potential Melanoma Detected",
-                "action": "Please seek immediate dermatologist consultation"
-            }
-        },
-        'normal': {
-            "products": [
-                {"name": "Gentle Moisturizer", "brand": "CeraVe", "score": 0.95},
-                {"name": "Sunscreen SPF 50", "brand": "La Roche-Posay", "score": 0.92}
-            ],
-            "food": {
-                "eat": [
-                    {"name": "Balanced diet", "reason": "Maintain healthy skin"},
-                    {"name": "Antioxidant-rich foods", "reason": "Protect skin cells"}
-                ],
-                "avoid": []
-            },
-            "precautions": [
-                "Use sunscreen daily",
-                "Stay hydrated",
-                "Get adequate sleep",
-                "Maintain a consistent skincare routine"
-            ],
-            "risk_level": "LOW",
-            "requires_doctor": False
-        }
+def get_condition_info(condition):
+    """Get all information about a specific condition"""
+    return {
+        "condition": condition,
+        "display_name": DISPLAY_NAMES.get(condition, condition.replace('_', ' ').title()),
+        "category": CATEGORY_MAPPING.get(condition, 'disease'),
+        "risk": RISK_LEVELS.get(condition, {'level': 'MODERATE', 'requires_doctor': False})
     }
-    
-    # Default to normal if disease not found
-    return fallback_recs.get(disease, fallback_recs['normal'])
 
 
 # ==============================
-# MAIN PREDICTION FUNCTION - FIXED WITH HEURISTIC ALWAYS
+# MAIN PREDICTION FUNCTION
 # ==============================
-
 def predict_disease(image_path):
     """
-    Predict skin disease from image and return full result with recommendations
+    Predict skin condition using 9-class model.
+    Returns comprehensive analysis with recommendations.
     """
     try:
-        logger.info(f"🔍 Processing image: {image_path}")
-        
-        # Check if image exists
+        load_resources()
+
         if not os.path.exists(image_path):
-            logger.error(f"Image not found: {image_path}")
             return {
-                "error": "Image not found",
+                "error": f"Image not found: {image_path}",
                 "condition": "normal",
                 "display_name": "Normal Skin",
-                "category": "normal",
-                "confidence": 0,
-                "recommendations": get_fallback_recommendations("normal"),
-                "risk_assessment": {"level": "LOW", "requires_doctor": False}
+                "confidence": 0
             }
-        
-        # ---------- Model Prediction ----------
-        try:
-            # Preprocess
-            img = load_img(image_path, target_size=(224, 224))
-            arr = img_to_array(img)
-            arr = preprocess_input(arr)
-            arr = np.expand_dims(arr, axis=0)
 
-            # Predict
-            pred = model.predict(arr, verbose=0)[0]
-            idx = np.argmax(pred)
-            confidence = float(pred[idx])
-            category = CLASS_NAMES[idx]
-            
-            logger.info(f"📊 Model Prediction: {category} ({confidence:.2%})")
-            logger.info(f"   Full probabilities: {dict(zip(CLASS_NAMES, pred))}")
-            
-        except Exception as e:
-            logger.error(f"❌ Model prediction failed: {e}")
-            # Use fallback when model fails
-            category = "disease"  # Force disease category
-            confidence = 0.75
-            pred = [0.1, 0.8, 0.1]  # Dummy prediction
+        # ---------- PREPROCESS ----------
+        arr = preprocess_single_image(image_path)
 
-        # =====================================================
-        # 🔥 FORCED HEURISTIC - ALWAYS OVERRIDE MODEL
-        # =====================================================
-        # Always use heuristic to get variety of conditions
-        logger.info("⚠️ Using heuristic detection (model override)")
+        # ---------- PREDICT ----------
+        predictions = model.predict(arr, verbose=0)[0]
         
-        # Analyze image features to decide if it's disease or allergy
-        brightness, redness, variance = analyze_image_features(image_path)
+        logger.info(f"🔥 RAW OUTPUT (9 classes): {predictions}")
         
-        # Decide category based on features
-        if redness > 30:
-            forced_category = "allergy"
-        elif variance > 40:
-            forced_category = "disease"
-        else:
-            # Random but weighted toward disease
-            forced_category = random.choices(["disease", "allergy"], weights=[0.6, 0.4])[0]
-        
-        logger.info(f"🔧 Forced category: {forced_category}")
-        
-        # Get specific condition using weighted random
-        disease = pick_condition(forced_category, image_path)
-        display_name = disease.replace("_", " ").title()
-        
-        # Use confidence from model or default
-        specific_confidence = confidence * 0.85 if confidence > 0 else 0.75
-        
-        # Override category for display
-        category = forced_category
-        
-        logger.info(f"🎯 RESULT: {disease} ({display_name})")
+        # Create mapping for logging
+        class_probs = dict(zip(CLASS_NAMES, predictions))
+        logger.info(f"📊 Class probabilities: {class_probs}")
 
-        # ---------- GET RECOMMENDATIONS ----------
-        recommendations = None
-        risk_assessment = None
+        # Get top prediction
+        idx = int(np.argmax(predictions))
+        confidence = float(predictions[idx])
+        condition = CLASS_NAMES[idx]
+
+        logger.info(f"👉 Predicted: {condition} ({confidence:.2%})")
+
+        # Create all probabilities dictionary
+        all_probabilities = {
+            CLASS_NAMES[i]: float(predictions[i])
+            for i in range(len(CLASS_NAMES))
+        }
+
+        # Sort probabilities for display
+        sorted_probabilities = dict(
+            sorted(all_probabilities.items(), key=lambda x: x[1], reverse=True)
+        )
+
+        # Get category and display name
+        category = CATEGORY_MAPPING.get(condition, 'disease')
+        display_name = DISPLAY_NAMES.get(condition, condition.replace('_', ' ').title())
+
+        # Get risk assessment
+        risk_info = RISK_LEVELS.get(condition, {
+            'level': 'MODERATE', 
+            'requires_doctor': False
+        })
+
+        # ---------- RECOMMENDATIONS ----------
+        recommendations = {}
+        risk_assessment = {}
         
         if recommender:
             try:
-                rec_result = recommender.get_complete_recommendations(
-                    disease=disease,
+                rec = recommender.get_complete_recommendations(
+                    disease=condition,
                     symptoms=[]
                 )
-                recommendations = rec_result.get("recommendations", get_fallback_recommendations(disease))
-                risk_assessment = rec_result.get("risk_assessment", {
-                    "level": get_fallback_recommendations(disease).get("risk_level", "MODERATE"),
-                    "requires_doctor": get_fallback_recommendations(disease).get("requires_doctor", False)
-                })
-                logger.info(f"✅ Recommendations fetched from recommender")
+                recommendations = rec.get("recommendations", {})
+                risk_assessment = rec.get("risk_assessment", {})
+                
+                # Ensure risk level is included
+                if 'risk_level' not in recommendations:
+                    recommendations['risk_level'] = risk_info['level']
+                if 'requires_doctor' not in recommendations:
+                    recommendations['requires_doctor'] = risk_info['requires_doctor']
+                    
             except Exception as e:
-                logger.error(f"❌ Recommender failed: {e}")
-                fallback = get_fallback_recommendations(disease)
+                logger.warning(f"⚠️ Recommendation failed: {e}")
+                # Provide default recommendations
                 recommendations = {
-                    "products": fallback.get("products", []),
-                    "food": fallback.get("food", {"eat": [], "avoid": []}),
-                    "precautions": fallback.get("precautions", [])
+                    'risk_level': risk_info['level'],
+                    'requires_doctor': risk_info['requires_doctor'],
+                    'precautions': [
+                        'Consult a dermatologist for proper diagnosis',
+                        'Keep the area clean and dry',
+                        'Avoid scratching or touching the affected area'
+                    ]
                 }
-                risk_assessment = {
-                    "level": fallback.get("risk_level", "MODERATE"),
-                    "requires_doctor": fallback.get("requires_doctor", False)
-                }
-                if disease == "melanoma":
-                    recommendations["emergency"] = fallback.get("emergency")
-        else:
-            fallback = get_fallback_recommendations(disease)
-            recommendations = {
-                "products": fallback.get("products", []),
-                "food": fallback.get("food", {"eat": [], "avoid": []}),
-                "precautions": fallback.get("precautions", [])
-            }
-            risk_assessment = {
-                "level": fallback.get("risk_level", "MODERATE"),
-                "requires_doctor": fallback.get("requires_doctor", False)
-            }
-            if disease == "melanoma":
-                recommendations["emergency"] = fallback.get("emergency")
-
-        # ---------- Prepare Response ----------
-        all_probabilities = {CLASS_NAMES[i]: round(float(pred[i]), 4) for i in range(3)}
         
-        result = {
-            "condition": disease,
+        # Add emergency message for high-risk conditions
+        note = None
+        if condition == 'melanoma':
+            note = EMERGENCY_MESSAGES['melanoma']['message']
+        elif confidence < 0.6:
+            note = f"ℹ️ Confidence is {confidence:.1%}. Consider getting a second opinion from a dermatologist."
+        elif condition in ['acne', 'eczema', 'fungal'] and confidence > 0.7:
+            note = f"✅ High confidence detection of {display_name}. Follow the recommendations below for management."
+
+        # ---------- RESPONSE ----------
+        response = {
+            "condition": condition,
             "display_name": display_name,
             "category": category,
-            "confidence": round(specific_confidence, 4),
-            "category_confidence": round(confidence, 4),
+            "confidence": round(confidence, 4),
             "all_probabilities": all_probabilities,
+            "sorted_probabilities": sorted_probabilities,
             "recommendations": recommendations,
             "risk_assessment": risk_assessment,
-            "model_used": "heuristic_with_fallback",
-            "note": "Using enhanced detection (heuristic mode)"
+            "model_used": "simple_cnn_9class",
+            "class_names": CLASS_NAMES
         }
         
-        logger.info(f"✅ FINAL RESULT: {display_name} ({specific_confidence:.2%})")
-        logger.info(f"   Risk Level: {risk_assessment.get('level', 'UNKNOWN')}")
-        logger.info(f"   Condition: {disease}")
-        
-        return result
+        # Add note if applicable
+        if note:
+            response["note"] = note
+            
+        # Add emergency info if condition is melanoma
+        if condition == 'melanoma':
+            response["emergency"] = EMERGENCY_MESSAGES['melanoma']
+
+        logger.info(f"✅ Prediction successful for {condition} with {confidence:.2%} confidence")
+        return response
 
     except Exception as e:
         logger.error(f"❌ Prediction error: {e}", exc_info=True)
@@ -404,41 +288,57 @@ def predict_disease(image_path):
             "error": str(e),
             "condition": "normal",
             "display_name": "Normal Skin",
-            "category": "normal",
             "confidence": 0,
-            "category_confidence": 0,
-            "all_probabilities": {},
-            "recommendations": get_fallback_recommendations("normal"),
-            "risk_assessment": {"level": "LOW", "requires_doctor": False},
-            "model_used": "error"
+            "category": "normal",
+            "all_probabilities": {cls: 0.0 for cls in CLASS_NAMES},
+            "recommendations": {
+                "risk_level": "LOW",
+                "requires_doctor": False,
+                "precautions": ["Unable to analyze image. Please try again with a clearer image."]
+            }
         }
 
 
 # ==============================
-# TEST FUNCTION
+# BATCH PREDICTION (OPTIONAL)
 # ==============================
-if __name__ == "__main__":
-    import tempfile
-    from PIL import Image
+def predict_batch(image_paths):
+    """Predict multiple images"""
+    results = []
+    for path in image_paths:
+        result = predict_disease(path)
+        results.append(result)
+    return results
+
+
+# ==============================
+# GET CONDITION DETAILS (OPTIONAL)
+# ==============================
+def get_condition_details(condition):
+    """Get detailed information about a specific condition"""
+    if condition not in CLASS_NAMES:
+        return {"error": f"Unknown condition: {condition}"}
     
-    print("\n" + "="*60)
-    print("🧪 Testing Disease Service")
-    print("="*60)
-    
-    # Create a test image
-    test_img = Image.new("RGB", (224, 224), color="gray")
-    test_path = tempfile.mktemp(suffix=".jpg")
-    test_img.save(test_path)
-    
-    # Test prediction
-    result = predict_disease(test_path)
-    print(f"\n📊 Test Result:")
-    print(f"   Condition: {result.get('condition')}")
-    print(f"   Display Name: {result.get('display_name')}")
-    print(f"   Category: {result.get('category')}")
-    print(f"   Confidence: {result.get('confidence', 0):.2%}")
-    print(f"   Risk Level: {result.get('risk_assessment', {}).get('level')}")
-    
-    # Clean up
-    os.remove(test_path)
-    print("="*60)
+    return {
+        "condition": condition,
+        "display_name": DISPLAY_NAMES.get(condition),
+        "category": CATEGORY_MAPPING.get(condition),
+        "risk_level": RISK_LEVELS.get(condition, {}).get('level'),
+        "requires_doctor": RISK_LEVELS.get(condition, {}).get('requires_doctor', False)
+    }
+
+
+# ==============================
+# MODEL INFO (OPTIONAL)
+# ==============================
+def get_model_info():
+    """Get information about the loaded model"""
+    return {
+        "model_path": MODEL_PATH,
+        "model_exists": os.path.exists(MODEL_PATH),
+        "num_classes": len(CLASS_NAMES),
+        "classes": CLASS_NAMES,
+        "model_loaded": model is not None,
+        "recommender_loaded": recommender is not None,
+        "tensorflow_version": tf.__version__
+    }

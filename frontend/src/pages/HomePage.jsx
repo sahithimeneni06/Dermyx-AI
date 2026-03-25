@@ -12,7 +12,7 @@ const HomePage = () => {
       description: 'Upload a photo of your skin concern for instant AI-powered disease detection and analysis.',
       color: '#c4694f',
       path: '/detect-disease',
-      stats: '95% accuracy',
+      stats: '75% accuracy',
       features: ['Acne detection', 'Eczema analysis', 'Melasma screening', 'Psoriasis identification']
     },
     {

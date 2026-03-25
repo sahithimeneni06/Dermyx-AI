@@ -14,7 +14,7 @@ const ImageAnalysis = ({ onResults, onError }) => {
     if (!selected) return;
 
     if (!selected.type.startsWith('image/')) {
-      const msg = 'Please upload an image file (JPG, PNG, WEBP, etc.)';
+      const msg = 'Please upload an image file (JPG / PNG / JPEG)';
       setError(msg);
       return;
     }
@@ -113,7 +113,7 @@ const ImageAnalysis = ({ onResults, onError }) => {
               Click to upload or drag & drop
             </p>
             <p style={{ color: '#9ca3af', fontSize: '.85rem' }}>
-              JPG, PNG, WEBP — up to 10MB
+              JPG, PNG, JPEG — up to 10MB
             </p>
           </>
         )}

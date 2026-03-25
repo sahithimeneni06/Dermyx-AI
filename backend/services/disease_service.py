@@ -3,7 +3,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras.applications.efficientnet import preprocess_input
 from tensorflow.keras.utils import load_img, img_to_array
-from services.recommend_service import SkinDiseaseRecommender
+import json
 import logging
 
 logging.basicConfig(level=logging.INFO)
@@ -14,21 +14,46 @@ logger = logging.getLogger(__name__)
 # ==============================
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# ✅ Use the H5 model we just created
-MODEL_PATH = os.path.join(BASE_DIR, "models", "skin_model_9class.h5")
+# Try both model formats (prioritize .keras)
+MODEL_PATH_KERAS = os.path.join(BASE_DIR, "models", "skin_model_9class_comp.keras")
+MODEL_PATH_H5 = os.path.join(BASE_DIR, "models", "skin_model_9class.h5")
+CLASS_NAMES_PATH = os.path.join(BASE_DIR, "models", "class_names.json")
 
-# Verify model exists
-if not os.path.exists(MODEL_PATH):
-    raise RuntimeError(f"❌ Model not found at {MODEL_PATH}. Please run create_test_model.py first.")
+# Choose which model to use
+if os.path.exists(MODEL_PATH_KERAS):
+    MODEL_PATH = MODEL_PATH_KERAS
+    MODEL_FORMAT = "keras"
+elif os.path.exists(MODEL_PATH_H5):
+    MODEL_PATH = MODEL_PATH_H5
+    MODEL_FORMAT = "h5"
+else:
+    raise RuntimeError(f"❌ No model found. Checked: {MODEL_PATH_KERAS} and {MODEL_PATH_H5}")
 
-logger.info(f"📁 Using model: {MODEL_PATH}")
+# Image preprocessing parameters (must match training)
+IMG_SIZE = (224, 224)
 
-# ⚠️ MUST MATCH TRAINING ORDER - 9 CLASSES
-CLASS_NAMES = [
-    'acne', 'eczema', 'melanoma', 'vitiligo', 
-    'urticaria', 'contact_dermatitis', 'rash', 
-    'fungal', 'normal'
+# Load class names from training if available, otherwise use default
+if os.path.exists(CLASS_NAMES_PATH):
+    with open(CLASS_NAMES_PATH, 'r') as f:
+        CLASS_NAMES = json.load(f)
+    logger.info(f"📁 Loaded class names from file: {CLASS_NAMES}")
+else:
+    # Default class names (must match training order)
+    CLASS_NAMES = [
+    'acne',
+    'contact_dermatitis',
+    'eczema',
+    'fungal',
+    'melanoma',
+    'normal',
+    'rash',
+    'urticaria',
+    'vitiligo'
 ]
+    logger.info(f"📁 Using default class names: {CLASS_NAMES}")
+
+logger.info(f"📁 Using model: {MODEL_PATH} (format: {MODEL_FORMAT})")
+logger.info(f"📊 Classes ({len(CLASS_NAMES)}): {CLASS_NAMES}")
 
 # Display names for frontend
 DISPLAY_NAMES = {
@@ -45,19 +70,14 @@ DISPLAY_NAMES = {
 
 # Category mapping for UI styling
 CATEGORY_MAPPING = {
-    # Allergies (shown with orange styling)
     'urticaria': 'allergy',
     'contact_dermatitis': 'allergy',
     'rash': 'allergy',
-    
-    # Diseases (shown with red styling)
     'acne': 'disease',
     'eczema': 'disease',
     'melanoma': 'disease',
     'vitiligo': 'disease',
     'fungal': 'disease',
-    
-    # Normal (shown with green styling)
     'normal': 'normal'
 }
 
@@ -90,24 +110,99 @@ recommender = None
 
 
 def load_model():
-    """Load the H5 model"""
+    """Load model with compatibility handling for different TF versions"""
     global model
     
     logger.info(f"📦 Loading model from: {MODEL_PATH}")
     logger.info(f"🐍 TensorFlow version: {tf.__version__}")
     
     try:
-        # Load the H5 model - this should work with TF 2.12
-        model = tf.keras.models.load_model(MODEL_PATH, compile=False)
+        # Try loading with custom objects to handle compatibility
+        if MODEL_FORMAT == "keras":
+            try:
+                # First attempt: standard load
+                model = tf.keras.models.load_model(MODEL_PATH)
+            except TypeError as e:
+                if "InputLayer" in str(e) and "batch_shape" in str(e):
+                    logger.warning("⚠️ InputLayer compatibility issue detected. Trying alternative loading method...")
+                    # Alternative: load with custom_objects to handle InputLayer
+                    model = tf.keras.models.load_model(
+                        MODEL_PATH,
+                        custom_objects={'InputLayer': tf.keras.layers.InputLayer}
+                    )
+                else:
+                    raise
+        else:
+            # For H5 format, use legacy loading
+            model = tf.keras.models.load_model(MODEL_PATH, compile=False)
+        
         logger.info("✅ Model loaded successfully!")
         
         # Print model summary for debugging
-        model.summary(line_length=100)
+        try:
+            model.summary(line_length=100)
+        except:
+            logger.info("Model summary not available")
+        
+        return model
+        
+    except Exception as e:
+        logger.error(f"❌ Failed to load model: {e}")
+        logger.error(f"Model path: {MODEL_PATH}")
+        logger.error(f"Model format: {MODEL_FORMAT}")
+        
+        # Try fallback: rebuild model architecture
+        try:
+            logger.info("🔄 Attempting fallback: rebuilding model from scratch...")
+            model = rebuild_model_from_scratch()
+            if model:
+                logger.info("✅ Model rebuilt successfully!")
+                return model
+        except Exception as fallback_error:
+            logger.error(f"❌ Fallback failed: {fallback_error}")
+        
+        raise RuntimeError(f"Cannot load model: {e}")
+
+
+def rebuild_model_from_scratch():
+    """Rebuild the model architecture if loading fails"""
+    try:
+        # Recreate the same architecture as training
+        from tensorflow.keras.applications import EfficientNetB0
+        from tensorflow.keras import layers, models
+        
+        base_model = EfficientNetB0(
+            include_top=False,
+            weights='imagenet',
+            input_shape=(224, 224, 3)
+        )
+        base_model.trainable = False
+        
+        model = models.Sequential([
+            tf.keras.Input(shape=(224, 224, 3)),
+            layers.RandomFlip("horizontal"),
+            layers.RandomRotation(0.1),
+            layers.RandomZoom(0.1),
+            base_model,
+            layers.GlobalAveragePooling2D(),
+            layers.Dense(256, activation='relu'),
+            layers.Dropout(0.4),
+            layers.Dense(len(CLASS_NAMES), activation='softmax')
+        ])
+        
+        # Try to load weights if available
+        weights_path = MODEL_PATH
+        if os.path.exists(weights_path):
+            try:
+                model.load_weights(weights_path)
+                logger.info("✅ Weights loaded successfully")
+            except Exception as e:
+                logger.warning(f"⚠️ Could not load weights: {e}")
         
         return model
     except Exception as e:
-        logger.error(f"❌ Failed to load model: {e}")
-        raise RuntimeError(f"Cannot load model: {e}")
+        logger.error(f"❌ Failed to rebuild model: {e}")
+        return None
 
 
 def load_resources():
@@ -117,12 +212,20 @@ def load_resources():
     if model is None:
         model = load_model()
         logger.info(f"✅ Model ready with {len(CLASS_NAMES)} classes")
-        logger.info(f"📊 Classes: {CLASS_NAMES}")
 
+    # Optional: Load recommender if available
     if recommender is None:
         try:
-            recommender = SkinDiseaseRecommender()
-            logger.info("✅ Recommender initialized")
+            # Only import if available
+            import importlib.util
+            spec = importlib.util.find_spec("services.recommend_service")
+            if spec is not None:
+                from services.recommend_service import SkinDiseaseRecommender
+                recommender = SkinDiseaseRecommender()
+                logger.info("✅ Recommender initialized")
+            else:
+                logger.info("ℹ️ Recommender not available, using basic predictions")
+                recommender = None
         except Exception as e:
             logger.warning(f"⚠️ Recommender initialization failed: {e}")
             recommender = None
@@ -132,16 +235,24 @@ def load_resources():
 # HELPER FUNCTIONS
 # ==============================
 def preprocess_single_image(image_path):
-    """Preprocess image for prediction"""
+    """
+    Preprocess image for prediction using the same preprocessing as training.
+    Must match: load_img -> img_to_array -> preprocess_input (EfficientNet) -> expand_dims
+    """
     try:
-        img = load_img(image_path, target_size=(224, 224))
+        # Load image with target size (224, 224) as used in training
+        img = load_img(image_path, target_size=IMG_SIZE)
+        
+        # Convert to array
         arr = img_to_array(img)
         
-        # Normalize pixel values to [0, 1] for the simple CNN model
-        # Note: This is different from EfficientNet's preprocess_input
-        arr = arr / 255.0
+        # Apply EfficientNet preprocessing (important!)
+        # This scales pixels to [-1, 1] range as expected by EfficientNet
+        arr = preprocess_input(arr)
         
+        # Add batch dimension
         arr = np.expand_dims(arr, axis=0)
+        
         return arr
     except Exception as e:
         raise ValueError(f"Failed to preprocess image: {e}")
@@ -162,7 +273,7 @@ def get_condition_info(condition):
 # ==============================
 def predict_disease(image_path):
     """
-    Predict skin condition using 9-class model.
+    Predict skin condition using the trained model.
     Returns comprehensive analysis with recommendations.
     """
     try:
@@ -182,22 +293,18 @@ def predict_disease(image_path):
         # ---------- PREDICT ----------
         predictions = model.predict(arr, verbose=0)[0]
         
-        logger.info(f"🔥 RAW OUTPUT (9 classes): {predictions}")
+        logger.info(f"🔥 RAW OUTPUT ({len(CLASS_NAMES)} classes): {predictions[:5]}...")
         
-        # Create mapping for logging
-        class_probs = dict(zip(CLASS_NAMES, predictions))
-        logger.info(f"📊 Class probabilities: {class_probs}")
-
         # Get top prediction
         idx = int(np.argmax(predictions))
         confidence = float(predictions[idx])
-        condition = CLASS_NAMES[idx]
+        condition = CLASS_NAMES[idx] if idx < len(CLASS_NAMES) else "normal"
 
         logger.info(f"👉 Predicted: {condition} ({confidence:.2%})")
 
         # Create all probabilities dictionary
         all_probabilities = {
-            CLASS_NAMES[i]: float(predictions[i])
+            CLASS_NAMES[i]: float(predictions[i]) if i < len(predictions) else 0.0
             for i in range(len(CLASS_NAMES))
         }
 
@@ -217,36 +324,29 @@ def predict_disease(image_path):
         })
 
         # ---------- RECOMMENDATIONS ----------
-        recommendations = {}
+        recommendations = {
+            'risk_level': risk_info['level'],
+            'requires_doctor': risk_info['requires_doctor'],
+            'precautions': [
+                'Consult a dermatologist for proper diagnosis',
+                'Keep the area clean and dry',
+                'Avoid scratching or touching the affected area'
+            ]
+        }
         risk_assessment = {}
         
+        # Try to get advanced recommendations if available
         if recommender:
             try:
                 rec = recommender.get_complete_recommendations(
                     disease=condition,
                     symptoms=[]
                 )
-                recommendations = rec.get("recommendations", {})
-                risk_assessment = rec.get("risk_assessment", {})
-                
-                # Ensure risk level is included
-                if 'risk_level' not in recommendations:
-                    recommendations['risk_level'] = risk_info['level']
-                if 'requires_doctor' not in recommendations:
-                    recommendations['requires_doctor'] = risk_info['requires_doctor']
-                    
+                if rec:
+                    recommendations.update(rec.get("recommendations", {}))
+                    risk_assessment = rec.get("risk_assessment", {})
             except Exception as e:
-                logger.warning(f"⚠️ Recommendation failed: {e}")
-                # Provide default recommendations
-                recommendations = {
-                    'risk_level': risk_info['level'],
-                    'requires_doctor': risk_info['requires_doctor'],
-                    'precautions': [
-                        'Consult a dermatologist for proper diagnosis',
-                        'Keep the area clean and dry',
-                        'Avoid scratching or touching the affected area'
-                    ]
-                }
+                logger.warning(f"⚠️ Advanced recommendation failed: {e}")
         
         # Add emergency message for high-risk conditions
         note = None
@@ -267,7 +367,7 @@ def predict_disease(image_path):
             "sorted_probabilities": sorted_probabilities,
             "recommendations": recommendations,
             "risk_assessment": risk_assessment,
-            "model_used": "simple_cnn_9class",
+            "model_used": f"efficientnetb0_9class_{MODEL_FORMAT}",
             "class_names": CLASS_NAMES
         }
         
@@ -335,10 +435,38 @@ def get_model_info():
     """Get information about the loaded model"""
     return {
         "model_path": MODEL_PATH,
+        "model_format": MODEL_FORMAT,
         "model_exists": os.path.exists(MODEL_PATH),
         "num_classes": len(CLASS_NAMES),
         "classes": CLASS_NAMES,
         "model_loaded": model is not None,
         "recommender_loaded": recommender is not None,
-        "tensorflow_version": tf.__version__
+        "tensorflow_version": tf.__version__,
+        "image_size": IMG_SIZE
+    }
+
+
+# ==============================
+# TEST FUNCTION (OPTIONAL)
+# ==============================
+def test_prediction(image_path):
+    """Simple test function matching notebook style"""
+    if model is None:
+        load_model()
+    
+    img = tf.keras.utils.load_img(image_path, target_size=IMG_SIZE)
+    img = tf.keras.utils.img_to_array(img)
+    img = preprocess_input(img)
+    img = np.expand_dims(img, axis=0)
+    
+    pred = model.predict(img)[0]
+    idx = np.argmax(pred)
+    
+    print("Prediction:", CLASS_NAMES[idx])
+    print("Confidence:", float(pred[idx]))
+    
+    return {
+        "prediction": CLASS_NAMES[idx],
+        "confidence": float(pred[idx]),
+        "all_probabilities": {CLASS_NAMES[i]: float(pred[i]) for i in range(len(CLASS_NAMES))}
     }

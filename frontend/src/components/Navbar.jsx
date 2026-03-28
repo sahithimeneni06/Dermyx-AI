@@ -46,6 +46,11 @@ const Navbar = () => {
             Products
           </Link>
         </li>
+        <li>
+          <Link to="/nearby-doctors" className={isActive('/nearby-doctors')} onClick={closeNav}>
+            📍 Nearby
+          </Link>
+        </li>
       </ul>
       
       <button className="nav-ham" onClick={toggleNav} aria-label="Menu">

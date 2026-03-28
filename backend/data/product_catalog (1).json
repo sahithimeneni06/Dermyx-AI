@@ -1,0 +1,47 @@
+{
+  "products": [
+    {
+      "name": "Gentle Cleanser",
+      "ingredients": ["Niacinamide"],
+      "safe_for": ["Rosacea", "Dermatitis", "Sensitive Skin"]
+    },
+    {
+      "name": "Oil-Free Moisturizer",
+      "ingredients": ["Hyaluronic Acid"],
+      "safe_for": ["Acne", "Oily Skin"]
+    },
+    {
+      "name": "Antifungal Cream",
+      "ingredients": ["Clotrimazole"],
+      "safe_for": ["Fungal Skin Infection"]
+    },
+    {
+      "name": "Alcohol Toner",
+      "ingredients": ["Alcohol"],
+      "unsafe_for": ["Rosacea", "Skin Dryness"]
+    },
+    {
+      "name": "Fragrance Lotion",
+      "ingredients": ["Fragrance"],
+      "unsafe_for": ["Dermatitis"]
+    },
+
+    {
+      "name": "Ceramide Moisturizer",
+      "ingredients": ["Ceramides"],
+      "safe_for": ["Eczema", "Skin Dryness"]
+    },
+    {
+      "name": "Sunscreen SPF 50",
+      "ingredients": ["Zinc Oxide"],
+      "safe_for": ["Sun Allergy", "Hyperpigmentation"]
+    },
+    {
+      "name": "Salicylic Acid Cleanser",
+      "ingredients": ["Salicylic Acid"],
+      "safe_for": ["Acne"],
+      "unsafe_for": ["Skin Dryness"]
+    }
+  ]
+  
+}

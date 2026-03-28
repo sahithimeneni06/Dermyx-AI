@@ -1,4 +1,3 @@
-# routes/product_routes.py
 from flask import Blueprint, request, jsonify
 from services.ingredient_service import analyze_ingredient_image, analyze_ingredient_text
 import os
@@ -17,7 +16,6 @@ product_bp = Blueprint("product", __name__)
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# Timeout decorator for functions that might hang
 def timeout_handler(signum, frame):
     raise TimeoutError("Function timed out")
 
@@ -30,7 +28,7 @@ def with_timeout(seconds=30):
             signal.alarm(seconds)
             try:
                 result = func(*args, **kwargs)
-                signal.alarm(0)  # Disable alarm
+                signal.alarm(0) 
                 return result
             except TimeoutError:
                 logger.error(f"Function {func.__name__} timed out after {seconds} seconds")

@@ -1,4 +1,3 @@
-# routes/skin_tone_routes.py
 from flask import Blueprint, request, jsonify
 import os
 import uuid

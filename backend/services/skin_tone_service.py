@@ -1,7 +1,3 @@
-"""
-Skin Tone Service - Using Trained Model
-"""
-
 import os
 import torch
 import torch.nn as nn

@@ -1,6 +1,3 @@
-"""
-Simple Ingredient Service - No dependencies on ML models
-"""
 
 import re
 import logging

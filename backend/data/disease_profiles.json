@@ -1,0 +1,79 @@
+{
+  "Dermatitis": {
+    "risk": "Moderate",
+    "symptoms": ["itching", "dryness", "redness"]
+  },
+  "Contact Dermatitis": {
+    "risk": "Moderate",
+    "symptoms": ["itching", "redness", "swelling"]
+  },
+  "Seborrheic Dermatitis": {
+    "risk": "Low",
+    "symptoms": ["scaling", "flaking", "redness"]
+  },
+  "Atopic Dermatitis": {
+    "risk": "Moderate",
+    "symptoms": ["itching", "dryness", "sensitivity"]
+  },
+  "Acne": {
+    "risk": "Low",
+    "symptoms": ["pimples", "pus", "oily skin"]
+  },
+  "Psoriasis": {
+    "risk": "Moderate",
+    "symptoms": ["thickened skin", "scaling", "bleeding"]
+  },
+  "Vitiligo": {
+    "risk": "Low",
+    "symptoms": ["white patches"]
+  },
+  "Fungal Skin Infection": {
+    "risk": "Moderate",
+    "symptoms": ["itching", "scaling"]
+  },
+  "Rosacea": {
+    "risk": "Moderate",
+    "symptoms": ["facial redness", "burning", "sensitivity"]
+  },
+  "Urticaria": {
+    "risk": "Low",
+    "symptoms": ["swelling", "itching"]
+  },
+  "Viral Wart": {
+    "risk": "Low",
+    "symptoms": ["rough bumps"]
+  },
+  "Hyperpigmentation": {
+    "risk": "Low",
+    "symptoms": ["dark patches"]
+  },
+  "Sun Allergy": {
+    "risk": "Moderate",
+    "symptoms": ["redness", "burning"]
+  },
+  "Skin Dryness": {
+    "risk": "Low",
+    "symptoms": ["dryness", "flaking"]
+  },
+  "Melasma": {
+    "risk": "Low",
+    "symptoms": ["dark patches"]
+  },
+  "Melanoma": {
+    "risk": "High",
+    "symptoms": ["irregular mole", "color change", "bleeding"]
+  },
+
+  "Bacterial Skin Infection": {
+    "risk": "High",
+    "symptoms": ["pain", "pus", "swelling"]
+  },
+  "Eczema": {
+    "risk": "Moderate",
+    "symptoms": ["itching", "cracking", "dryness"]
+  },
+  "Photosensitivity": {
+    "risk": "Moderate",
+    "symptoms": ["burning", "redness"]
+  }
+}

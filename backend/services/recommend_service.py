@@ -1,8 +1,3 @@
-"""
-Recommendation Service
-----------------------
-Provides product and food recommendations based on detected skin conditions
-"""
 
 import json
 import numpy as np
@@ -19,10 +14,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 
 class SkinDiseaseRecommender:
-    """
-    Advanced Skin Disease and Allergy Recommendation Engine
-    Combines rule-based filtering with content-based and hybrid ranking
-    """
     
     def __init__(self, data_path: str = None):
         """

@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from services.disease_service import predict_disease  # ✅ Updated import
+from services.disease_service import predict_disease  # ✅ 
 import tempfile
 import os
 import logging
@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 disease_bp = Blueprint("disease", __name__)
 
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
-MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
+MAX_FILE_SIZE = 5 * 1024 * 1024  
 
 
 def allowed_file(filename):
@@ -19,9 +19,6 @@ def allowed_file(filename):
 @disease_bp.route("/detect-disease", methods=["POST"])
 def detect_disease():
     try:
-        # =========================
-        # VALIDATION
-        # =========================
         if "image" not in request.files:
             return jsonify({"success": False, "error": "No image provided"}), 400
 
@@ -36,9 +33,6 @@ def detect_disease():
                 "error": "Invalid file type (use PNG/JPG/JPEG)"
             }), 400
 
-        # =========================
-        # FILE SIZE CHECK
-        # =========================
         file.seek(0, os.SEEK_END)
         size = file.tell()
         file.seek(0)
@@ -49,38 +43,23 @@ def detect_disease():
                 "error": "File too large (max 5MB)"
             }), 400
 
-        # =========================
-        # SAVE TEMP FILE
-        # =========================
         with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as temp:
             file.save(temp.name)
             temp_path = temp.name
 
         logger.info(f"📸 Processing image: {temp_path}")
 
-        # =========================
-        # MODEL PREDICTION
-        # =========================
         result = predict_disease(temp_path)
 
-        # =========================
-        # CLEANUP
-        # =========================
         if os.path.exists(temp_path):
             os.remove(temp_path)
 
-        # =========================
-        # ERROR FROM MODEL
-        # =========================
         if "error" in result:
             return jsonify({
                 "success": False,
                 "error": result["error"]
             }), 500
 
-        # =========================
-        # SUCCESS RESPONSE
-        # =========================
         return jsonify({
             "success": True,
             "data": result
@@ -94,10 +73,6 @@ def detect_disease():
             "error": "Internal server error"
         }), 500
 
-
-# =========================
-# HEALTH CHECK
-# =========================
 @disease_bp.route("/health", methods=["GET"])
 def health():
     return jsonify({
@@ -105,7 +80,6 @@ def health():
         "service": "disease_detection"
     })
 
-# Add this to your disease_routes.py file
 
 @disease_bp.route("/model-info", methods=["GET"])
 def model_info():

@@ -30,10 +30,17 @@ const OVERALL_RATING_STYLES = {
   Unknown: { color: '#6b7280', icon: '❓' },
 };
 
+// In ResultCard.jsx, replace the CATEGORY_STYLES with this:
+
 const CATEGORY_STYLES = {
   allergy: { color: '#f39c12', emoji: '🤧', label: 'Allergy Detected' },
   disease: { color: '#e74c3c', emoji: '⚠️', label: 'Skin Disease Detected' },
   normal: { color: '#16a34a', emoji: '✅', label: 'Healthy Skin' },
+  melanoma: { color: '#dc2626', emoji: '🔴', label: 'High Risk Skin Cancer' },  // Add this
+  acne: { color: '#d97706', emoji: '🔴', label: 'Acne Detected' },  // Add this
+  eczema_like: { color: '#d97706', emoji: '⚠️', label: 'Eczema Detected' },  // Add this
+  fungal: { color: '#d97706', emoji: '⚠️', label: 'Fungal Infection Detected' },  // Add this
+  vitiligo: { color: '#8b5cf6', emoji: '⚠️', label: 'Vitiligo Detected' }  // Add this
 };
 
 
@@ -539,150 +546,144 @@ const SymptomResult = ({ data }) => {
   );
 };
 
+// In ResultCard.jsx - REPLACE the entire DiseaseResult component with this fixed version:
+
+// In ResultCard.jsx - REPLACE the entire DiseaseResult component with this:
+
 // ─────────────────────────────────────────────
-// DISEASE / ALLERGY RESULT - COMPLETELY CORRECTED
-// ─────────────────────────────────────────────
-// ─────────────────────────────────────────────
-// DISEASE / ALLERGY RESULT - COMPLETELY CORRECTED
-// ─────────────────────────────────────────────
-// ─────────────────────────────────────────────
-// DISEASE / ALLERGY RESULT - COMPLETELY CORRECTED
+// DISEASE / ALLERGY RESULT - COMPLETE FIX FOR ALL 6 CLASSES
 // ─────────────────────────────────────────────
 const DiseaseResult = ({ data, type }) => {
   // =====================================================
-  // ROBUST DATA EXTRACTION - FIXES "always normal" bug
+  // ROBUST DATA EXTRACTION
   // =====================================================
   
-  // Debug log to see what we're receiving
+  // Debug log
   console.log('🔬 DiseaseResult received:', {
     data,
     type,
+    'data.prediction': data?.prediction,
     'data.condition': data?.condition,
-    'data.category': data?.category,
-    'data.display_name': data?.display_name,
-    'data.recommendations': data?.recommendations
+    'data.confidence': data?.confidence,
+    'data.top3': data?.top3,
+    'data.all_probabilities': data?.all_probabilities
   });
   
-  // ✅ STEP 1: Extract condition (MOST IMPORTANT)
-  // Priority: condition > category > fallback
-  const rawCondition = data?.condition || data?.category || 'normal';
+  // ✅ STEP 1: Extract condition (from prediction field)
+  let condition = data?.prediction || data?.condition || 'normal';
+  condition = String(condition).toLowerCase();
   
-  // ✅ STEP 2: Normalize condition
-  const condition = rawCondition.toLowerCase();
-  
-  // ✅ STEP 3: Get display name with proper formatting
-  let displayName = data?.display_name;
-  if (!displayName) {
-    // Format based on condition
-    if (condition === 'allergy') {
-      displayName = 'Allergy Detected';
-    } else if (condition === 'disease') {
-      displayName = 'Skin Disease Detected';
-    } else if (condition === 'normal') {
-      displayName = 'Normal Skin';
-    } else if (condition === 'acne') {
-      displayName = 'Acne';
-    } else if (condition === 'eczema') {
-      displayName = 'Eczema';
-    } else if (condition === 'melanoma') {
-      displayName = 'Melanoma (High Risk)';
-    } else if (condition === 'vitiligo') {
-      displayName = 'Vitiligo';
-    } else if (condition === 'contact_dermatitis') {
-      displayName = 'Contact Dermatitis';
-    } else if (condition === 'urticaria') {
-      displayName = 'Urticaria (Hives)';
-    } else if (condition === 'fungal') {
-      displayName = 'Fungal Infection';
-    } else if (condition === 'rash') {
-      displayName = 'General Rash';
-    } else if (condition === 'psoriasis') {
-      displayName = 'Psoriasis';
-    } else if (condition === 'rosacea') {
-      displayName = 'Rosacea';
-    } else {
-      // Generic formatting
-      displayName = condition.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  // If we have top3 predictions, use the first one as the condition
+  if (data?.top3 && Array.isArray(data.top3) && data.top3.length > 0) {
+    const topPrediction = data.top3[0];
+    if (topPrediction && topPrediction.class) {
+      condition = topPrediction.class.toLowerCase();
+      console.log(`✅ Using top3 prediction: ${condition}`);
     }
   }
   
-  // ✅ STEP 4: Get confidence (handle different formats)
+  // ✅ STEP 2: Get confidence
   let confidence = data?.confidence || 0;
-  if (confidence === 0 && data?.category_confidence) {
-    confidence = data.category_confidence;
+  if (confidence === 0 && data?.top3 && data.top3.length > 0) {
+    confidence = data.top3[0]?.confidence || 0;
   }
   const confidencePercent = Math.round(confidence * 100);
   
-  // ✅ STEP 5: Get probabilities (handle different formats)
-  let allProbabilities = data?.all_probabilities || data?.all_predictions || {};
+  // ✅ STEP 3: Get display name based on condition
+  const displayNames = {
+    'acne': 'Acne',
+    'eczema_like': 'Eczema / Dermatitis',
+    'fungal': 'Fungal Infection',
+    'melanoma': 'Melanoma (Skin Cancer)',
+    'normal': 'Normal Skin',
+    'vitiligo': 'Vitiligo'
+  };
+  let displayName = data?.display_name || displayNames[condition] || 
+                    condition.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
   
-  // If no probabilities, create from condition
-  if (Object.keys(allProbabilities).length === 0 && condition) {
-    allProbabilities = {
-      allergy: condition === 'allergy' ? confidence || 0.7 : 0.1,
-      disease: condition === 'disease' ? confidence || 0.7 : 0.1,
-      normal: condition === 'normal' ? confidence || 0.7 : 0.1
-    };
+  // ✅ STEP 4: Get all probabilities
+  let allProbabilities = data?.all_probabilities || {};
+  
+  // If we have top3 but no all_probabilities, create from top3
+  if (Object.keys(allProbabilities).length === 0 && data?.top3 && data.top3.length > 0) {
+    allProbabilities = {};
+    data.top3.forEach(item => {
+      allProbabilities[item.class] = item.confidence;
+    });
+    // Add remaining classes with 0
+    const allClasses = ['acne', 'eczema_like', 'fungal', 'melanoma', 'normal', 'vitiligo'];
+    allClasses.forEach(cls => {
+      if (!allProbabilities[cls]) allProbabilities[cls] = 0;
+    });
   }
+  
+  // ✅ STEP 5: Determine category style based on condition
+  // In DiseaseResult component, replace the category style section with this:
+
+// ✅ STEP 5: Determine category style based on condition (FIXED)
+let catStyle = {};
+
+// Style mapping for each condition - this will override CATEGORY_STYLES
+const styleMap = {
+  'melanoma': { color: '#dc2626', emoji: '🔴', label: 'High Risk Skin Cancer', bg: '#fef2f2' },
+  'acne': { color: '#d97706', emoji: '⚠️', label: 'Acne Detected', bg: '#fffbeb' },
+  'eczema_like': { color: '#d97706', emoji: '⚠️', label: 'Eczema / Dermatitis Detected', bg: '#fffbeb' },
+  'eczema': { color: '#d97706', emoji: '⚠️', label: 'Eczema Detected', bg: '#fffbeb' },
+  'fungal': { color: '#d97706', emoji: '⚠️', label: 'Fungal Infection Detected', bg: '#fffbeb' },
+  'vitiligo': { color: '#8b5cf6', emoji: '⚠️', label: 'Vitiligo Detected', bg: '#f5f3ff' },
+  'normal': { color: '#16a34a', emoji: '✅', label: 'Healthy Skin', bg: '#f0fdf4' }
+};
+
+// Use the style from map if condition exists
+if (styleMap[condition]) {
+  catStyle = styleMap[condition];
+} else {
+  // Fallback to generic disease style
+  catStyle = { color: '#e74c3c', emoji: '⚠️', label: 'Skin Disease Detected', bg: '#fef2f2' };
+}
+
+// Now use catStyle for the header display
+const displayLabel = catStyle.label;
+const displayEmoji = catStyle.emoji;
+const displayColor = catStyle.color;
   
   // ✅ STEP 6: Get recommendations
   const recommendations = data?.recommendations || {};
   
-  // ✅ STEP 7: Determine category style (for UI colors)
-  // FIX: Properly map specific diseases to correct category
-  let categoryKey = condition;
-  
-  // List of specific skin diseases (these should show as DISEASE category)
-  const specificDiseases = [
-    'acne', 'eczema', 'melanoma', 'vitiligo', 'psoriasis', 'rosacea',
-    'actinic_keratosis', 'basal_cell_carcinoma', 'squamous_cell_carcinoma'
-  ];
-  
-  // List of allergy-related conditions (these should show as ALLERGY category)
-  const allergyConditions = [
-    'allergy', 'contact_dermatitis', 'urticaria', 'rash', 'fungal'
-  ];
-  
-  if (specificDiseases.includes(condition)) {
-    categoryKey = 'disease';
-  } else if (allergyConditions.includes(condition)) {
-    categoryKey = 'allergy';
-  } else if (condition === 'normal') {
-    categoryKey = 'normal';
+  // ✅ STEP 7: Risk assessment
+  let finalRisk = null;
+  if (condition === 'melanoma') {
+    finalRisk = { level: 'HIGH', requires_doctor: true };
+  } else if (recommendations.risk_level) {
+    finalRisk = {
+      level: recommendations.risk_level,
+      requires_doctor: recommendations.requires_doctor
+    };
+  } else if (condition !== 'normal') {
+    finalRisk = { level: 'MODERATE', requires_doctor: false };
   }
   
-  const catStyle = CATEGORY_STYLES[categoryKey] || { 
-    color: '#6b7280', 
-    emoji: '📊', 
-    label: 'Analysis Result' 
-  };
-  
-  // ✅ STEP 8: Extract risk assessment
-  const risk = recommendations.risk_level
-    ? { 
-        level: recommendations.risk_level, 
-        requires_doctor: recommendations.requires_doctor 
-      }
-    : null;
-  
-  // ✅ STEP 9: Extract food recommendations
+  // ✅ STEP 8: Extract recommendations
   const food = recommendations.food;
-  
-  // ✅ STEP 10: Extract products
   const products = recommendations.products;
-  
-  // ✅ STEP 11: Extract precautions
   const precautions = recommendations.precautions;
-  
-  // ✅ STEP 12: Extract emergency info
   const emergency = recommendations.emergency;
-  
-  // ✅ STEP 13: Extract note
   const note = data?.note;
   
-  // =====================================================
-  // RENDER COMPONENT
-  // =====================================================
+  // ✅ STEP 9: Create sorted probabilities for display
+  const sortedProbabilities = Object.entries(allProbabilities)
+    .filter(([_, prob]) => prob > 0.01) // Show only probabilities > 1%
+    .sort(([, a], [, b]) => b - a);
+  
+  // Display names for each class in breakdown
+  const classDisplayNames = {
+    'acne': 'Acne',
+    'eczema_like': 'Eczema',
+    'fungal': 'Fungal',
+    'melanoma': 'Melanoma',
+    'normal': 'Normal',
+    'vitiligo': 'Vitiligo'
+  };
   
   return (
     <div className="result-content">
@@ -690,27 +691,34 @@ const DiseaseResult = ({ data, type }) => {
       <EmergencyBanner emergency={emergency} />
 
       {/* Header Section */}
-      <div className="result-head">
+      <div className="result-head" style={{ 
+        borderBottom: `2px solid ${catStyle.color}`,
+        paddingBottom: '16px'
+      }}>
         <div>
-          <div className="result-name" style={{ color: catStyle.color }}>
-            {catStyle.emoji} {displayName}
-          </div>
-          <div className="result-label">{catStyle.label}</div>
-          {type === 'allergy' && (
-            <div style={{ fontSize: '.8rem', color: '#f39c12', marginTop: '4px', fontWeight: '500' }}>
-              🌿 Allergy Analysis Mode
-            </div>
-          )}
-          {/* Show detected condition name for debugging */}
-          <div style={{ fontSize: '.7rem', color: '#9ca3af', marginTop: '4px' }}>
-            Detected: {condition}
+          <div className="result-name" style={{ 
+            color: catStyle.color, 
+            fontSize: '1.5rem', 
+            fontWeight: 'bold',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}>
+            <span style={{ fontSize: '2rem' }}>{catStyle.emoji}</span>
+            {catStyle.label}
           </div>
         </div>
-        <div className="conf-box">
-          <span className="conf-num" style={{ color: catStyle.color }}>
+        <div className="conf-box" style={{ textAlign: 'center' }}>
+          <span className="conf-num" style={{ 
+            color: catStyle.color, 
+            fontSize: '2rem', 
+            fontWeight: 'bold' 
+          }}>
             {confidencePercent}%
           </span>
-          <span className="conf-lbl">confidence</span>
+          <span className="conf-lbl" style={{ fontSize: '0.7rem', color: '#6b7280' }}>
+            confidence
+          </span>
         </div>
       </div>
 
@@ -728,45 +736,81 @@ const DiseaseResult = ({ data, type }) => {
       )}
 
       {/* Risk Badge */}
-      {risk && <RiskBadge level={risk.level} requiresDoctor={risk.requires_doctor} />}
+      {finalRisk && (
+        <div style={{
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: '10px', 
+          marginBottom: '20px',
+          padding: '12px 16px',
+          background: finalRisk.level === 'HIGH' ? '#fef2f2' : '#f9fafb',
+          borderRadius: '8px', 
+          borderLeft: `4px solid ${RISK_COLORS[finalRisk.level] || '#6b7280'}`,
+        }}>
+          <span style={{ fontSize: '.9rem', color: '#374151' }}>Risk Level:</span>
+          <span style={{
+            padding: '4px 12px', 
+            borderRadius: '100px',
+            background: RISK_COLORS[finalRisk.level] || '#6b7280', 
+            color: 'white', 
+            fontSize: '.8rem', 
+            fontWeight: '600',
+          }}>
+            {finalRisk.level}
+          </span>
+          {finalRisk.requires_doctor && (
+            <span style={{ color: '#ea580c', fontSize: '.85rem' }}>
+              ⚕ Consult a dermatologist
+            </span>
+          )}
+        </div>
+      )}
 
-      {/* Probability Breakdown */}
-      {Object.keys(allProbabilities).length > 0 && (
+      {/* Confidence Breakdown */}
+      {sortedProbabilities.length > 0 && (
         <div style={{ marginBottom: '24px' }}>
           <h4 style={{ fontSize: '.9rem', marginBottom: '10px', color: '#374151' }}>
             Confidence Breakdown
           </h4>
-          {Object.entries(allProbabilities)
-            .sort(([, a], [, b]) => b - a)
-            .map(([cls, prob]) => {
-              const pct = Math.round(prob * 100);
-              const isTop = cls.toLowerCase() === condition;
-              const clsStyle = CATEGORY_STYLES[cls.toLowerCase()] || { color: '#9ca3af' };
-              return (
-                <div key={cls} style={{ marginBottom: '10px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                    <span style={{ 
-                      fontSize: '.85rem', 
-                      fontWeight: isTop ? '600' : '400', 
-                      color: isTop ? catStyle.color : '#374151' 
-                    }}>
-                      {cls.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}
-                      {isTop ? ' ✓' : ''}
-                    </span>
-                    <span style={{ fontSize: '.8rem', color: '#6b7280' }}>{pct}%</span>
-                  </div>
-                  <div style={{ height: '8px', background: '#e5e7eb', borderRadius: '4px', overflow: 'hidden' }}>
-                    <div style={{ 
-                      width: `${pct}%`, 
-                      height: '100%', 
-                      background: isTop ? catStyle.color : '#d1d5db', 
-                      borderRadius: '4px', 
-                      transition: 'width 0.6s ease' 
-                    }} />
-                  </div>
+          {sortedProbabilities.map(([cls, prob]) => {
+            const pct = Math.round(prob * 100);
+            const isTop = cls.toLowerCase() === condition;
+            const displayClass = classDisplayNames[cls] || cls;
+            
+            return (
+              <div key={cls} style={{ marginBottom: '12px' }}>
+                <div style={{ 
+                  display: 'flex', 
+                  justifyContent: 'space-between', 
+                  marginBottom: '4px' 
+                }}>
+                  <span style={{ 
+                    fontSize: '.85rem', 
+                    fontWeight: isTop ? '600' : '400', 
+                    color: isTop ? catStyle.color : '#374151' 
+                  }}>
+                    {displayClass}
+                    {isTop && pct > 0 ? ` ✓` : ''}
+                  </span>
+                  <span style={{ fontSize: '.8rem', color: '#6b7280' }}>{pct}%</span>
                 </div>
-              );
-            })}
+                <div style={{ 
+                  height: '8px', 
+                  background: '#e5e7eb', 
+                  borderRadius: '4px', 
+                  overflow: 'hidden' 
+                }}>
+                  <div style={{ 
+                    width: `${pct}%`, 
+                    height: '100%', 
+                    background: isTop ? catStyle.color : '#d1d5db', 
+                    borderRadius: '4px', 
+                    transition: 'width 0.6s ease' 
+                  }} />
+                </div>
+              </div>
+            );
+          })}
         </div>
       )}
 
@@ -782,7 +826,7 @@ const DiseaseResult = ({ data, type }) => {
   );
 };
 
-const ResultCard = ({ result }) => {
+const ResultCard = ({ result, onConditionChange }) => {
   // Support both { type, data } and flat result objects
   const type = result.type || 'disease';
   const data = result.data || result;
@@ -797,6 +841,23 @@ const ResultCard = ({ result }) => {
     'data.skin_tone': data?.skin_tone,
     'data.risk': data?.risk
   });
+
+  // Extract the actual condition
+  const actualCondition = data?.prediction || data?.condition || 'normal';
+  const confidence = data?.confidence || 0;
+  
+  // Use useEffect to notify parent of condition change
+  React.useEffect(() => {
+    if (onConditionChange) {
+      onConditionChange({
+        condition: actualCondition,
+        displayName: data?.display_name || getDisplayName(actualCondition),
+        confidence: confidence,
+        riskLevel: actualCondition === 'melanoma' ? 'HIGH' : (actualCondition === 'normal' ? 'LOW' : 'MODERATE'),
+        requiresDoctor: actualCondition === 'melanoma'
+      });
+    }
+  }, [actualCondition, confidence, data?.display_name, onConditionChange]);
 
   // Product result (has overall_rating or ingredients)
   if (type === 'product' || data.overall_rating !== undefined || 

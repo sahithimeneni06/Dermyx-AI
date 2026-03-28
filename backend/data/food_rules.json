@@ -1,0 +1,35 @@
+{
+  "Cucumber": {
+    "recommended_for": ["Rosacea", "Sun Allergy"]
+  },
+  "Omega-3 Foods": {
+    "recommended_for": ["Dermatitis", "Psoriasis"]
+  },
+  "Leafy Vegetables": {
+    "recommended_for": ["Acne", "Hyperpigmentation"]
+  },
+  "Spicy Foods": {
+    "avoid_for": ["Rosacea", "Urticaria"]
+  },
+  "Dairy": {
+    "avoid_for": ["Acne"]
+  },
+  "Alcohol": {
+    "avoid_for": ["Psoriasis", "Rosacea"]
+  },
+
+  
+  "Probiotics": {
+    "recommended_for": ["Eczema", "Fungal Skin Infection"]
+  },
+  "Citrus Fruits": {
+    "avoid_for": ["Photosensitivity"]
+  },
+  "Nuts": {
+    "avoid_for": ["Urticaria"]
+  },
+  "Water-Rich Fruits": {
+    "recommended_for": ["Skin Dryness"]
+  }
+}
+

@@ -1,0 +1,782 @@
+[
+  {
+    "disease": "Dermatitis",
+    "severity": "Mild",
+    "symptoms_text": "I have itchy, dry patches on my hands that become worse after washing dishes or using soap. The skin feels rough but does not ooze.",
+    "affected_areas": ["hands"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Inflammatory dermatitis"
+    }
+  },
+  {
+    "disease": "Dermatitis",
+    "severity": "Mild",
+    "symptoms_text": "There are small dry, flaky patches on my cheeks that sometimes look lighter than the surrounding skin.",
+    "affected_areas": ["face"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Inflammatory dermatitis"
+    }
+  },
+  {
+    "disease": "Dermatitis",
+    "severity": "Mild",
+    "symptoms_text": "My eyelids feel itchy and irritated with mild redness, especially after using new cosmetic products.",
+    "affected_areas": ["eyelids"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Inflammatory dermatitis"
+    }
+  },
+  {
+    "disease": "Dermatitis",
+    "severity": "Moderate",
+    "symptoms_text": "I have red, itchy patches on my arms and legs that sometimes ooze fluid and form crusts after scratching.",
+    "affected_areas": ["arms", "legs"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Inflammatory dermatitis"
+    }
+  },
+  {
+    "disease": "Dermatitis",
+    "severity": "Moderate",
+    "symptoms_text": "My skin has thickened and darkened in areas where I keep scratching due to persistent itching.",
+    "affected_areas": ["neck", "arms"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Inflammatory dermatitis"
+    }
+  },
+  {
+    "disease": "Dermatitis",
+    "severity": "Moderate",
+    "symptoms_text": "There are coin-shaped itchy patches on my legs that are scaly and sometimes painful.",
+    "affected_areas": ["legs"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Inflammatory dermatitis"
+    }
+  },
+  {
+    "disease": "Dermatitis",
+    "severity": "Severe",
+    "symptoms_text": "Large areas of my skin are red, inflamed, and extremely itchy. The skin oozes and cracks, making daily activities difficult.",
+    "affected_areas": ["arms", "legs", "torso"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Inflammatory dermatitis"
+    }
+  },
+  {
+    "disease": "Dermatitis",
+    "severity": "Severe",
+    "symptoms_text": "More than half of my body is affected by itchy, red, thickened skin with scaling and fissures that bleed.",
+    "affected_areas": ["full body"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Inflammatory dermatitis"
+    }
+  },
+  {
+    "disease": "Dermatitis",
+    "severity": "Severe",
+    "symptoms_text": "I have constant intense itching that keeps me awake at night, along with widespread redness and skin thickening.",
+    "affected_areas": ["full body"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Inflammatory dermatitis"
+    }
+  },
+  {
+    "disease": "Acne",
+    "severity": "Mild",
+    "symptoms_text": "I have small blackheads and whiteheads on my face, mainly on my nose and forehead. My skin feels oily but there is no pain.",
+    "affected_areas": ["face"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Follicular disorder"
+    }
+  },
+  {
+    "disease": "Acne",
+    "severity": "Mild",
+    "symptoms_text": "There are tiny bumps on my cheeks and chin that keep appearing. They are not painful but make my skin look uneven.",
+    "affected_areas": ["face"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Follicular disorder"
+    }
+  },
+  {
+    "disease": "Acne",
+    "severity": "Mild",
+    "symptoms_text": "My skin is oily and I often notice whiteheads around my nose and mouth area.",
+    "affected_areas": ["face"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Follicular disorder"
+    }
+  },
+  {
+    "disease": "Acne",
+    "severity": "Moderate",
+    "symptoms_text": "I have red pimples and pus-filled bumps on my face and upper back. The skin is inflamed and sometimes painful.",
+    "affected_areas": ["face", "back"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Follicular disorder"
+    }
+  },
+  {
+    "disease": "Acne",
+    "severity": "Moderate",
+    "symptoms_text": "My acne has spread to my chest and shoulders. The pimples are swollen and leave dark marks after healing.",
+    "affected_areas": ["chest", "shoulders"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Follicular disorder"
+    }
+  },
+  {
+    "disease": "Acne",
+    "severity": "Moderate",
+    "symptoms_text": "I experience frequent breakouts with red bumps on my cheeks and jawline, and the skin feels sore.",
+    "affected_areas": ["face"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Follicular disorder"
+    }
+  },
+  {
+    "disease": "Acne",
+    "severity": "Severe",
+    "symptoms_text": "I have large painful bumps under my skin that feel deep and inflamed. Some of them leave scars after healing.",
+    "affected_areas": ["face", "back"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Follicular disorder"
+    }
+  },
+  {
+    "disease": "Acne",
+    "severity": "Severe",
+    "symptoms_text": "My acne is very painful with nodules and cysts on my face and back. The skin is red, swollen, and sensitive.",
+    "affected_areas": ["face", "back"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Follicular disorder"
+    }
+  },
+  {
+    "disease": "Acne",
+    "severity": "Severe",
+    "symptoms_text": "I have deep cystic acne that causes constant pain and leaves permanent scars on my skin.",
+    "affected_areas": ["face", "chest", "back"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Follicular disorder"
+    }
+  },
+  {
+    "disease": "Psoriasis",
+    "severity": "Mild",
+    "symptoms_text": "I have small red patches on my elbows and knees with thin white scales. The itching is mild and manageable.",
+    "affected_areas": ["elbows", "knees"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Autoimmune / inflammatory"
+    }
+  },
+  {
+    "disease": "Psoriasis",
+    "severity": "Mild",
+    "symptoms_text": "There are dry, flaky patches on my scalp that shed scales but do not cause much pain.",
+    "affected_areas": ["scalp"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Autoimmune / inflammatory"
+    }
+  },
+  {
+    "disease": "Psoriasis",
+    "severity": "Mild",
+    "symptoms_text": "I notice thin red plaques with light scaling on my arms that become worse when my skin is dry.",
+    "affected_areas": ["arms"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Autoimmune / inflammatory"
+    }
+  },
+  {
+    "disease": "Psoriasis",
+    "severity": "Moderate",
+    "symptoms_text": "I have well-defined red plaques with silvery scales on my elbows, knees, and lower back. The itching is frequent.",
+    "affected_areas": ["elbows", "knees", "lower back"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Autoimmune / inflammatory"
+    }
+  },
+  {
+    "disease": "Psoriasis",
+    "severity": "Moderate",
+    "symptoms_text": "My scalp and ears have thick scaling and redness. Scratching sometimes causes pinpoint bleeding.",
+    "affected_areas": ["scalp", "ears"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Autoimmune / inflammatory"
+    }
+  },
+  {
+    "disease": "Psoriasis",
+    "severity": "Moderate",
+    "symptoms_text": "I have painful cracks on my palms and soles with thickened skin that makes daily activities uncomfortable.",
+    "affected_areas": ["palms", "soles"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Autoimmune / inflammatory"
+    }
+  },
+  {
+    "disease": "Psoriasis",
+    "severity": "Severe",
+    "symptoms_text": "Large thick plaques with heavy silvery scales cover my back, arms, and legs. The skin cracks and bleeds.",
+    "affected_areas": ["back", "arms", "legs"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Autoimmune / inflammatory"
+    }
+  },
+  {
+    "disease": "Psoriasis",
+    "severity": "Severe",
+    "symptoms_text": "My skin is red and inflamed over most of my body with severe itching that affects my sleep.",
+    "affected_areas": ["full body"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Autoimmune / inflammatory"
+    }
+  },
+  {
+    "disease": "Psoriasis",
+    "severity": "Severe",
+    "symptoms_text": "I have nail pitting, yellow discoloration, and joint pain along with thick scaly skin patches.",
+    "affected_areas": ["nails", "joints", "skin"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Autoimmune / inflammatory"
+    }
+  },
+  {
+  "disease": "Vitiligo",
+  "severity": "Mild",
+  "symptoms_text": "I have small white patches on my hands and around my mouth. They are not painful but are clearly lighter than my normal skin.",
+  "affected_areas": ["hands", "mouth"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Autoimmune / pigmentary disorder"
+  }
+},
+{
+  "disease": "Vitiligo",
+  "severity": "Mild",
+  "symptoms_text": "There are pale patches on my eyelids and fingers that slowly appeared over time without itching or pain.",
+  "affected_areas": ["eyelids", "fingers"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Autoimmune / pigmentary disorder"
+  }
+},
+{
+  "disease": "Vitiligo",
+  "severity": "Mild",
+  "symptoms_text": "I notice small depigmented spots on my arms that become more visible when my surrounding skin tans.",
+  "affected_areas": ["arms"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Autoimmune / pigmentary disorder"
+  }
+},
+{
+  "disease": "Vitiligo",
+  "severity": "Moderate",
+  "symptoms_text": "White patches have spread across my face and neck. The borders are clearly defined and contrast strongly with my skin tone.",
+  "affected_areas": ["face", "neck"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Autoimmune / pigmentary disorder"
+  }
+},
+{
+  "disease": "Vitiligo",
+  "severity": "Moderate",
+  "symptoms_text": "I have symmetrical white patches on both hands and feet that have gradually increased in size over several months.",
+  "affected_areas": ["hands", "feet"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Autoimmune / pigmentary disorder"
+  }
+},
+{
+  "disease": "Vitiligo",
+  "severity": "Moderate",
+  "symptoms_text": "Depigmented patches have appeared in my armpits and groin area. They are asymptomatic but spreading slowly.",
+  "affected_areas": ["armpits", "groin"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Autoimmune / pigmentary disorder"
+  }
+},
+{
+  "disease": "Vitiligo",
+  "severity": "Severe",
+  "symptoms_text": "Large areas of my skin on the face, trunk, and limbs have lost all pigment, causing significant contrast and emotional distress.",
+  "affected_areas": ["face", "trunk", "limbs"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Autoimmune / pigmentary disorder"
+  }
+},
+{
+  "disease": "Vitiligo",
+  "severity": "Severe",
+  "symptoms_text": "Most of my body has depigmented patches, including my hands, feet, and face. Some of my hair in these areas has turned white.",
+  "affected_areas": ["full body", "hair"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Autoimmune / pigmentary disorder"
+  }
+},
+{
+  "disease": "Vitiligo",
+  "severity": "Severe",
+  "symptoms_text": "I have extensive vitiligo affecting nearly my entire body surface, with loss of skin pigment and whitening of eyebrows and scalp hair.",
+  "affected_areas": ["full body", "scalp", "eyebrows"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Autoimmune / pigmentary disorder"
+  }
+},
+{
+  "disease": "Fungal Skin Infection",
+  "severity": "Mild",
+  "symptoms_text": "I have itchy, scaly skin between my toes with mild redness. The skin sometimes peels but there is no pain.",
+  "affected_areas": ["feet", "between toes"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Infectious / fungal"
+  }
+},
+{
+  "disease": "Fungal Skin Infection",
+  "severity": "Mild",
+  "symptoms_text": "There are light-colored patches on my upper chest and back that become more noticeable after sun exposure.",
+  "affected_areas": ["chest", "back"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Infectious / fungal"
+  }
+},
+{
+  "disease": "Fungal Skin Infection",
+  "severity": "Mild",
+  "symptoms_text": "I have mild itching and redness in my groin area, especially after sweating.",
+  "affected_areas": ["groin"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Infectious / fungal"
+  }
+},
+{
+  "disease": "Fungal Skin Infection",
+  "severity": "Moderate",
+  "symptoms_text": "I have round, red, itchy patches with raised borders on my arms that keep spreading slowly.",
+  "affected_areas": ["arms"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Infectious / fungal"
+  }
+},
+{
+  "disease": "Fungal Skin Infection",
+  "severity": "Moderate",
+  "symptoms_text": "My scalp has scaly patches with hair breakage and itching. Some areas appear swollen.",
+  "affected_areas": ["scalp"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Infectious / fungal"
+  }
+},
+{
+  "disease": "Fungal Skin Infection",
+  "severity": "Moderate",
+  "symptoms_text": "The skin on my soles and sides of my feet is thick, cracked, and itchy, making walking uncomfortable.",
+  "affected_areas": ["soles", "feet"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Infectious / fungal"
+  }
+},
+{
+  "disease": "Fungal Skin Infection",
+  "severity": "Severe",
+  "symptoms_text": "I have painful swelling with pus-filled areas on my scalp, along with hair loss and tenderness.",
+  "affected_areas": ["scalp"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Infectious / fungal"
+  }
+},
+{
+  "disease": "Fungal Skin Infection",
+  "severity": "Severe",
+  "symptoms_text": "My nails have become thick, yellow, brittle, and are lifting from the nail bed, causing discomfort.",
+  "affected_areas": ["nails"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Infectious / fungal"
+  }
+},
+{
+  "disease": "Fungal Skin Infection",
+  "severity": "Severe",
+  "symptoms_text": "I have widespread red, scaly, and itchy patches over large areas of my body that are not responding to creams.",
+  "affected_areas": ["trunk", "limbs"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Infectious / fungal"
+  }
+},
+{
+    "disease": "Fungal Skin Infection",
+    "severity": "Mild",
+    "symptoms_text": "I have itchy, scaly skin between my toes with mild redness. The skin sometimes peels but there is no pain.",
+    "affected_areas": ["feet", "between toes"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Infectious / fungal"
+    }
+  },
+  {
+    "disease": "Fungal Skin Infection",
+    "severity": "Mild",
+    "symptoms_text": "There are light-colored patches on my upper chest and back that become more noticeable after sun exposure.",
+    "affected_areas": ["chest", "back"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Infectious / fungal"
+    }
+  },
+  {
+    "disease": "Fungal Skin Infection",
+    "severity": "Mild",
+    "symptoms_text": "I have mild itching and redness in my groin area, especially after sweating.",
+    "affected_areas": ["groin"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Infectious / fungal"
+    }
+  },
+  {
+    "disease": "Fungal Skin Infection",
+    "severity": "Moderate",
+    "symptoms_text": "I have round, red, itchy patches with raised borders on my arms that keep spreading slowly.",
+    "affected_areas": ["arms"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Infectious / fungal"
+    }
+  },
+  {
+    "disease": "Fungal Skin Infection",
+    "severity": "Moderate",
+    "symptoms_text": "My scalp has scaly patches with hair breakage and itching. Some areas appear swollen.",
+    "affected_areas": ["scalp"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Infectious / fungal"
+    }
+  },
+  {
+    "disease": "Fungal Skin Infection",
+    "severity": "Moderate",
+    "symptoms_text": "The skin on my soles and sides of my feet is thick, cracked, and itchy, making walking uncomfortable.",
+    "affected_areas": ["soles", "feet"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Infectious / fungal"
+    }
+  },
+  {
+    "disease": "Fungal Skin Infection",
+    "severity": "Severe",
+    "symptoms_text": "I have painful swelling with pus-filled areas on my scalp, along with hair loss and tenderness.",
+    "affected_areas": ["scalp"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Infectious / fungal"
+    }
+  },
+  {
+    "disease": "Fungal Skin Infection",
+    "severity": "Severe",
+    "symptoms_text": "My nails have become thick, yellow, brittle, and are lifting from the nail bed, causing discomfort.",
+    "affected_areas": ["nails"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Infectious / fungal"
+    }
+  },
+  {
+    "disease": "Fungal Skin Infection",
+    "severity": "Severe",
+    "symptoms_text": "I have widespread red, scaly, and itchy patches over large areas of my body that are not responding to creams.",
+    "affected_areas": ["trunk", "limbs"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Infectious / fungal"
+    }
+  },
+  {
+    "disease": "Rosacea",
+    "severity": "Mild",
+    "symptoms_text": "My cheeks and nose often become red and flushed, especially after hot drinks or sun exposure. The redness fades after some time.",
+    "affected_areas": ["cheeks", "nose"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Inflammatory"
+    }
+  },
+  {
+    "disease": "Rosacea",
+    "severity": "Mild",
+    "symptoms_text": "I notice mild redness in the center of my face with occasional warmth and sensitivity, but no pimples.",
+    "affected_areas": ["central face"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Inflammatory"
+    }
+  },
+  {
+    "disease": "Rosacea",
+    "severity": "Mild",
+    "symptoms_text": "My face gets red easily when I exercise or feel stressed, and my skin feels sensitive and dry.",
+    "affected_areas": ["face"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Inflammatory"
+    }
+  },
+  {
+    "disease": "Rosacea",
+    "severity": "Moderate",
+    "symptoms_text": "I have persistent redness on my cheeks and nose along with small red bumps and pus-filled spots.",
+    "affected_areas": ["cheeks", "nose"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Inflammatory"
+    }
+  },
+  {
+    "disease": "Rosacea",
+    "severity": "Moderate",
+    "symptoms_text": "There are visible blood vessels on my face, and I frequently develop inflamed pimples that look like acne.",
+    "affected_areas": ["cheeks", "nose", "chin"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Inflammatory"
+    }
+  },
+  {
+    "disease": "Rosacea",
+    "severity": "Moderate",
+    "symptoms_text": "My face feels burning and stinging with ongoing redness and flare-ups that last for days.",
+    "affected_areas": ["central face"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Inflammatory"
+    }
+  },
+  {
+    "disease": "Rosacea",
+    "severity": "Severe",
+    "symptoms_text": "My face is constantly red with thickened skin and swollen areas, especially on my nose.",
+    "affected_areas": ["nose", "face"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Inflammatory"
+    }
+  },
+  {
+    "disease": "Rosacea",
+    "severity": "Severe",
+    "symptoms_text": "I have severe facial redness with painful bumps and eye irritation, including dryness and burning.",
+    "affected_areas": ["face", "eyes"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Inflammatory"
+    }
+  },
+  {
+    "disease": "Rosacea",
+    "severity": "Severe",
+    "symptoms_text": "My skin is red, swollen, and sensitive most of the time, and the symptoms are affecting my confidence and daily life.",
+    "affected_areas": ["full face"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Inflammatory"
+    }
+  },
+  {
+    "disease": "Viral Wart",
+    "severity": "Mild",
+    "symptoms_text": "I have a small rough bump on my finger that feels hard and looks grainy. It does not hurt but is slowly growing.",
+    "affected_areas": ["finger"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Infectious / viral"
+    }
+  },
+  {
+    "disease": "Viral Wart",
+    "severity": "Mild",
+    "symptoms_text": "There are flat, skin-colored bumps on my face that appeared after shaving. They are not painful.",
+    "affected_areas": ["face"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Infectious / viral"
+    }
+  },
+  {
+    "disease": "Viral Wart",
+    "severity": "Mild",
+    "symptoms_text": "I have a small wart near my fingernail that feels rough but does not cause discomfort.",
+    "affected_areas": ["around nails"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Infectious / viral"
+    }
+  },
+  {
+    "disease": "Viral Wart",
+    "severity": "Moderate",
+    "symptoms_text": "I have multiple rough, raised warts on my hands and knees that sometimes catch on clothing.",
+    "affected_areas": ["hands", "knees"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Infectious / viral"
+    }
+  },
+  {
+    "disease": "Viral Wart",
+    "severity": "Moderate",
+    "symptoms_text": "There is a painful wart on the sole of my foot that hurts when I walk or stand for long periods.",
+    "affected_areas": ["sole of foot"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Infectious / viral"
+    }
+  },
+  {
+    "disease": "Viral Wart",
+    "severity": "Moderate",
+    "symptoms_text": "I have several flat warts spreading in a line on my arms after scratching the skin.",
+    "affected_areas": ["arms"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Infectious / viral"
+    }
+  },
+  {
+    "disease": "Viral Wart",
+    "severity": "Severe",
+    "symptoms_text": "I have large clusters of warts on my feet that are very painful and interfere with walking.",
+    "affected_areas": ["feet"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Infectious / viral"
+    }
+  },
+  {
+    "disease": "Viral Wart",
+    "severity": "Severe",
+    "symptoms_text": "The warts around my nails have caused nail damage and deformity, making daily tasks difficult.",
+    "affected_areas": ["nails"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Infectious / viral"
+    }
+  },
+  {
+    "disease": "Viral Wart",
+    "severity": "Severe",
+    "symptoms_text": "I have numerous warts across my hands and arms that keep spreading despite treatment.",
+    "affected_areas": ["hands", "arms"],
+    "metadata": {
+      "source": "DermNet",
+      "category": "Infectious / viral"
+    }
+  },
+  {
+  "disease": "Melanoma",
+  "severity": "Mild",
+  "symptoms_text": "I noticed a new mole on my arm that looks different from my other moles and has uneven edges.",
+  "affected_areas": ["arm"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Cancerous lesion"
+  }
+},
+{
+  "disease": "Melanoma",
+  "severity": "Mild",
+  "symptoms_text": "There is a small dark spot on my leg that has multiple shades of brown and black.",
+  "affected_areas": ["leg"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Cancerous lesion"
+  }
+},
+{
+  "disease": "Melanoma",
+  "severity": "Moderate",
+  "symptoms_text": "A mole on my back has grown larger over the past few months and has become irregular in shape.",
+  "affected_areas": ["back"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Cancerous lesion"
+  }
+},
+{
+  "disease": "Melanoma",
+  "severity": "Moderate",
+  "symptoms_text": "I have a raised dark lesion that sometimes itches and occasionally bleeds.",
+  "affected_areas": ["shoulder"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Cancerous lesion"
+  }
+},
+{
+  "disease": "Melanoma",
+  "severity": "Severe",
+  "symptoms_text": "The mole on my skin has rapidly increased in size, changed color, and started bleeding without injury.",
+  "affected_areas": ["skin"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Cancerous lesion"
+  }
+},
+{
+  "disease": "Melanoma",
+  "severity": "Severe",
+  "symptoms_text": "I have a dark, painful skin lesion with irregular borders along with swelling of nearby lymph nodes.",
+  "affected_areas": ["skin", "lymph nodes"],
+  "metadata": {
+    "source": "DermNet",
+    "category": "Cancerous lesion"
+  }
+}
+]

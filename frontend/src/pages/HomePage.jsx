@@ -44,6 +44,16 @@ const HomePage = () => {
       path: '/product-analysis',
       stats: 'Ingredient checker',
       features: ['Allergen detection', 'Safe alternatives', 'Ingredient scores', 'Product matching']
+    },
+    {
+      id: 'nearby',
+      title: 'Find Nearby Doctors',
+      icon: '📍',
+      description: 'Locate nearby dermatologists, skin clinics, and hospitals using real-time GPS.',
+      color: '#4f7ac4',
+      path: '/nearby-doctors',
+      stats: 'GPS powered',
+      features: ['Real-time GPS location', 'Dermatology specialists', 'Distance & directions', 'OpenStreetMap data']
     }
   ];
 

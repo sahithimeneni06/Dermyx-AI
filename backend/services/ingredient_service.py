@@ -1,6 +1,4 @@
-"""
-Ingredient Analysis Service - Standalone Version with OCR Support
-"""
+
 import os
 import re
 import logging

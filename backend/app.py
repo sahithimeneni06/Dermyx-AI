@@ -1,9 +1,9 @@
-# app.py
 from flask import Flask, jsonify
 from flask_cors import CORS
 import logging
 import sys
 import os
+from routes.location_routes import location_bp
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -11,14 +11,16 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 CORS(app)
 
-# Register blueprints with error handling
+app.register_blueprint(location_bp, url_prefix='/api/location')
+
 try:
+    
     from routes.disease_routes import disease_bp
     app.register_blueprint(disease_bp, url_prefix='/')
     logger.info("✅ disease_routes registered")
 except Exception as e:
     logger.error(f"❌ Failed to register disease_routes: {e}")
-    # Create a dummy blueprint for health check
+   
     from flask import Blueprint
     disease_bp = Blueprint('disease', __name__)
     

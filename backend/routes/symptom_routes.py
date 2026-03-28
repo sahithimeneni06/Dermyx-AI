@@ -1,4 +1,3 @@
-# routes/symptom_routes.py
 from flask import Blueprint, request, jsonify
 from services.symptom_service import analyze_symptoms
 import traceback

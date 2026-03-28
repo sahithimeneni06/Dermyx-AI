@@ -36,6 +36,25 @@ const SymptomCheckerPage = () => {
     if (e.key === 'Enter') addCustomSymptom();
   };
 
+  // Show doctor prompt after analysis
+  const showDoctorPrompt = (condition, conditionInfo) => {
+    setTimeout(() => {
+      const shouldFindDoctors = window.confirm(
+        `${conditionInfo.display_name} detected.\n\nRisk Level: ${conditionInfo.risk_level}\n\nWould you like to find nearby skin specialists?`
+      );
+      
+      if (shouldFindDoctors) {
+        navigate('/nearby-doctors', {
+          state: {
+            detectedCondition: condition,
+            conditionInfo: conditionInfo,
+            fromPage: 'symptoms'
+          }
+        });
+      }
+    }, 100);
+  };
+
   const handleAnalyze = async () => {
     if (selectedSymptoms.length === 0) {
       setError('Please select at least one symptom.');
@@ -46,9 +65,38 @@ const SymptomCheckerPage = () => {
 
     try {
       const result = await analyzeSymptoms(selectedSymptoms);
+      
+      // Check if result is valid
+      if (!result || !result.inferred_condition) {
+        throw new Error('Invalid analysis result');
+      }
+      
+      // Store in localStorage
       localStorage.setItem('symptomResult', JSON.stringify(result));
       localStorage.setItem('latestResult', JSON.stringify(result));
-      navigate('/results/symptoms');
+      
+      // Navigate to results page
+      navigate('/results/symptoms', { 
+        state: { 
+          result: result,
+          fromChecker: true
+        }
+      });
+      
+      // Check if we should show doctor prompt
+      const condition = result.inferred_condition;
+      const conditionInfo = {
+        display_name: result.display_name || result.inferred_condition.replace(/_/g, ' '),
+        risk_level: result.risk || 'MODERATE',
+        requires_doctor: result.recommendations?.requires_doctor || false,
+        confidence: result.confidence
+      };
+      
+      // Show prompt only for actual conditions (not normal or unknown)
+      if (condition !== 'normal' && condition !== 'unknown') {
+        showDoctorPrompt(condition, conditionInfo);
+      }
+      
     } catch (err) {
       console.error('❌ Symptom analysis failed:', err);
       setError(err.message || 'Analysis failed. Please ensure the backend is running.');
@@ -68,8 +116,12 @@ const SymptomCheckerPage = () => {
 
       {error && (
         <div style={{
-          background: '#fee2e2', border: '1px solid #fca5a5', borderRadius: '8px',
-          padding: '12px 16px', marginBottom: '20px', color: '#b91c1c',
+          background: '#fee2e2', 
+          border: '1px solid #fca5a5', 
+          borderRadius: '8px',
+          padding: '12px 16px', 
+          marginBottom: '20px', 
+          color: '#b91c1c',
         }}>
           ❌ {error}
         </div>
@@ -89,11 +141,15 @@ const SymptomCheckerPage = () => {
                   key={symptom}
                   onClick={() => toggleSymptom(symptom)}
                   style={{
-                    padding: '8px 16px', borderRadius: '100px', border: '1.5px solid',
+                    padding: '8px 16px', 
+                    borderRadius: '100px', 
+                    border: '1.5px solid',
                     borderColor: selected ? '#5c7e5f' : '#d1d5db',
                     background: selected ? '#5c7e5f' : 'white',
                     color: selected ? 'white' : '#374151',
-                    fontSize: '.85rem', cursor: 'pointer', fontWeight: selected ? '600' : '400',
+                    fontSize: '.85rem', 
+                    cursor: 'pointer', 
+                    fontWeight: selected ? '600' : '400',
                     transition: 'all 0.15s ease',
                   }}
                 >
@@ -117,17 +173,25 @@ const SymptomCheckerPage = () => {
               onKeyDown={handleKeyDown}
               placeholder="Type a symptom and press Enter or Add"
               style={{
-                flex: 1, padding: '10px 14px', borderRadius: '8px',
-                border: '1.5px solid #d1d5db', fontSize: '.9rem',
+                flex: 1, 
+                padding: '10px 14px', 
+                borderRadius: '8px',
+                border: '1.5px solid #d1d5db', 
+                fontSize: '.9rem',
                 outline: 'none',
               }}
             />
             <button
               onClick={addCustomSymptom}
               style={{
-                padding: '10px 18px', background: '#5c7e5f', color: 'white',
-                border: 'none', borderRadius: '8px', cursor: 'pointer',
-                fontSize: '.9rem', fontWeight: '500',
+                padding: '10px 18px', 
+                background: '#5c7e5f', 
+                color: 'white',
+                border: 'none', 
+                borderRadius: '8px', 
+                cursor: 'pointer',
+                fontSize: '.9rem', 
+                fontWeight: '500',
               }}
             >
               Add
@@ -137,7 +201,13 @@ const SymptomCheckerPage = () => {
 
         {/* Selected symptoms display */}
         {selectedSymptoms.length > 0 && (
-          <div style={{ marginBottom: '24px', padding: '16px', background: '#f0fdf4', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
+          <div style={{ 
+            marginBottom: '24px', 
+            padding: '16px', 
+            background: '#f0fdf4', 
+            borderRadius: '8px', 
+            border: '1px solid #bbf7d0' 
+          }}>
             <h4 style={{ fontSize: '.85rem', color: '#166534', marginBottom: '10px' }}>
               Selected ({selectedSymptoms.length}):
             </h4>
@@ -146,17 +216,28 @@ const SymptomCheckerPage = () => {
                 <span
                   key={s}
                   style={{
-                    padding: '4px 12px', background: 'white', border: '1px solid #86efac',
-                    borderRadius: '100px', fontSize: '.82rem', color: '#166534',
-                    display: 'flex', alignItems: 'center', gap: '6px',
+                    padding: '4px 12px', 
+                    background: 'white', 
+                    border: '1px solid #86efac',
+                    borderRadius: '100px', 
+                    fontSize: '.82rem', 
+                    color: '#166534',
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: '6px',
                   }}
                 >
                   {s}
                   <button
                     onClick={() => toggleSymptom(s)}
                     style={{
-                      background: 'none', border: 'none', cursor: 'pointer',
-                      color: '#dc2626', fontSize: '.9rem', padding: 0, lineHeight: 1,
+                      background: 'none', 
+                      border: 'none', 
+                      cursor: 'pointer',
+                      color: '#dc2626', 
+                      fontSize: '.9rem', 
+                      padding: 0, 
+                      lineHeight: 1,
                     }}
                   >
                     ×
@@ -173,13 +254,26 @@ const SymptomCheckerPage = () => {
           disabled={loading || selectedSymptoms.length === 0}
           className="btn btn-primary"
           style={{
-            width: '100%', padding: '14px', fontSize: '1rem',
+            width: '100%', 
+            padding: '14px', 
+            fontSize: '1rem',
             opacity: loading || selectedSymptoms.length === 0 ? 0.6 : 1,
             cursor: loading || selectedSymptoms.length === 0 ? 'not-allowed' : 'pointer',
+            background: loading || selectedSymptoms.length === 0 ? '#9ca3af' : '#5c7e5f',
           }}
         >
           {loading ? '⏳ Analyzing...' : `🔍 Analyze ${selectedSymptoms.length} Symptom${selectedSymptoms.length !== 1 ? 's' : ''}`}
         </button>
+
+        {/* Info note */}
+        <p style={{ 
+          fontSize: '.75rem', 
+          color: '#9ca3af', 
+          marginTop: '16px', 
+          textAlign: 'center' 
+        }}>
+          This analysis is for informational purposes only. Always consult a healthcare professional for medical advice.
+        </p>
       </div>
     </main>
   );

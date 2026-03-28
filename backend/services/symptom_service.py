@@ -1,4 +1,3 @@
-# services/symptom_service.py
 import logging
 
 logging.basicConfig(level=logging.INFO)

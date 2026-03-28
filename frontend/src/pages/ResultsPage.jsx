@@ -21,6 +21,47 @@ const PAGE_META = {
   product: { title: 'Product Ingredient Analysis', icon: '🧴' },
 };
 
+// Helper to get actual condition from result - handles both formats
+const getActualCondition = (result) => {
+  if (!result) return 'unknown';
+  // Handle nested data format
+  const data = result.data || result;
+  return data?.prediction || data?.condition || 'unknown';
+};
+
+// Helper to check if it's a skin condition (not normal)
+const isSkinCondition = (result) => {
+  const condition = getActualCondition(result);
+  return condition && condition !== 'normal' && condition !== 'unknown';
+};
+
+// Helper to check if it's normal skin
+const isNormalSkin = (result) => {
+  const condition = getActualCondition(result);
+  return condition === 'normal';
+};
+
+// Helper to get dynamic page title
+const getPageTitle = (result, meta, type) => {
+  if (!result || type !== 'disease') return meta.title;
+  
+  const data = result.data || result;
+  const condition = data?.prediction || data?.condition || 'unknown';
+  const confidence = data?.confidence || 0;
+  const confidencePercent = Math.round(confidence * 100);
+  
+  const titleMap = {
+    'melanoma': `🔴 Melanoma Detected (${confidencePercent}% confidence)`,
+    'acne': `🔴 Acne Detected (${confidencePercent}% confidence)`,
+    'eczema_like': `⚠️ Eczema Detected (${confidencePercent}% confidence)`,
+    'fungal': `⚠️ Fungal Infection Detected (${confidencePercent}% confidence)`,
+    'vitiligo': `⚠️ Vitiligo Detected (${confidencePercent}% confidence)`,
+    'normal': `✅ Healthy Skin (${confidencePercent}% confidence)`
+  };
+  
+  return titleMap[condition] || meta.title;
+};
+
 const ResultsPage = () => {
   const { type } = useParams();
   const navigate = useNavigate();
@@ -30,50 +71,25 @@ const ResultsPage = () => {
   useEffect(() => {
     const storageKey = STORAGE_KEY_MAP[type] || `${type}Result`;
     console.log(`📊 [ResultsPage] type="${type}" → key="${storageKey}"`);
-    console.log('📋 All localStorage keys:', Object.keys(localStorage));
     
-    // 🔥 Check if we should force reload from API (optional)
     const shouldRefresh = new URLSearchParams(window.location.search).get('refresh') === 'true';
     if (shouldRefresh) {
-      console.log('🔄 Refresh flag detected, clearing cache...');
       localStorage.removeItem(storageKey);
-      // Remove the refresh param from URL
       window.history.replaceState({}, '', window.location.pathname);
     }
 
     try {
-      // Try mapped key first
       const raw = localStorage.getItem(storageKey);
-      console.log(`📦 Raw data from key "${storageKey}":`, raw ? `${raw.substring(0, 200)}...` : 'null');
-      
       if (raw) {
         try {
           const parsedResult = JSON.parse(raw);
           console.log('✅ Parsed result:', parsedResult);
-          console.log('✅ Condition in result:', parsedResult.condition);
-          console.log('✅ Display name in result:', parsedResult.display_name);
           setResult(parsedResult);
         } catch (e) {
           console.error(`Failed to parse key "${storageKey}":`, e);
         }
       } else {
         console.warn(`⚠️ No data found for key: ${storageKey}`);
-        
-        // Try fallback keys
-        const fallbackKeys = [`${type}Result`, 'latestResult'];
-        for (const key of fallbackKeys) {
-          const fallbackRaw = localStorage.getItem(key);
-          if (fallbackRaw) {
-            try {
-              const parsed = JSON.parse(fallbackRaw);
-              console.log(`✅ Found fallback result in key "${key}"`);
-              setResult(parsed);
-              break;
-            } catch (e) {
-              console.error(`Failed to parse fallback key "${key}":`, e);
-            }
-          }
-        }
       }
     } catch (error) {
       console.error('❌ Error reading localStorage:', error);
@@ -85,19 +101,114 @@ const ResultsPage = () => {
   const handleNewAnalysis = () => {
     const storageKey = STORAGE_KEY_MAP[type] || `${type}Result`;
     localStorage.removeItem(storageKey);
-    console.log(`🗑️ Removed ${storageKey} from localStorage`);
     navigate('/');
   };
 
   const handleBack = () => navigate(-1);
   
   const handleForceRefresh = () => {
-    // Clear all relevant storage and reload
-    localStorage.removeItem(STORAGE_KEY_MAP[type]);
+    const storageKey = STORAGE_KEY_MAP[type] || `${type}Result`;
+    localStorage.removeItem(storageKey);
     window.location.reload();
   };
 
+  // FIXED: handleFindSpecialists - properly extracts condition from result.data
+  const handleFindSpecialists = () => {
+    if (!result) {
+      console.error('No result available');
+      return;
+    }
+    
+    // Extract the actual data (could be nested or flat)
+    const resultData = result.data || result;
+    
+    console.log('🔍 ========== DEBUG START ==========');
+    console.log('🔍 Full result:', result);
+    console.log('🔍 resultData:', resultData);
+    console.log('🔍 resultData.prediction:', resultData.prediction);
+    console.log('🔍 resultData.condition:', resultData.condition);
+    console.log('🔍 resultData.top3:', resultData.top3);
+    console.log('🔍 ========== DEBUG END ==========');
+    
+    // Extract condition from the data
+    let condition = resultData.prediction || resultData.condition;
+    
+    // If still no condition, try top3
+    if (!condition && resultData.top3 && resultData.top3.length > 0) {
+      condition = resultData.top3[0].class;
+      console.log('✅ Using condition from top3:', condition);
+    }
+    
+    // If still no condition, use unknown
+    if (!condition) {
+      condition = 'unknown';
+    }
+    
+    const confidence = resultData.confidence || 0;
+    
+    console.log('🎯 Final extracted condition:', condition);
+    
+    // Display name mapping
+    const displayNames = {
+      'acne': 'Acne',
+      'eczema_like': 'Eczema / Dermatitis',
+      'fungal': 'Fungal Infection',
+      'melanoma': 'Melanoma (Skin Cancer)',
+      'normal': 'Normal Skin',
+      'vitiligo': 'Vitiligo'
+    };
+    
+    const displayName = resultData.display_name || displayNames[condition] || 
+      condition.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    
+    // Determine risk level
+    let riskLevel = 'MODERATE';
+    let requiresDoctor = false;
+    
+    if (condition === 'melanoma') {
+      riskLevel = 'HIGH';
+      requiresDoctor = true;
+    } else if (condition === 'normal') {
+      riskLevel = 'LOW';
+      requiresDoctor = false;
+    }
+    
+    const conditionInfo = {
+      condition: condition,
+      display_name: displayName,
+      risk_level: riskLevel,
+      requires_doctor: requiresDoctor,
+      confidence: confidence,
+      category: condition === 'melanoma' ? 'melanoma' : 
+               (condition === 'normal' ? 'normal' : 'disease')
+    };
+    
+    console.log('🎯 Sending to NearbyDoctorsPage:', {
+      detectedCondition: condition,
+      conditionInfo: conditionInfo,
+      fromPage: type
+    });
+    
+    navigate('/nearby-doctors', {
+      state: {
+        detectedCondition: condition,
+        conditionInfo: conditionInfo,
+        fromPage: type
+      }
+    });
+  };
+
   const meta = PAGE_META[type] || { title: 'Analysis Results', icon: '📊' };
+  const actualCondition = result ? getActualCondition(result) : null;
+  const isSkinConditionResult = (type === 'disease' || type === 'allergy' || type === 'symptoms') && 
+                                result && 
+                                isSkinCondition(result);
+  const isNormalResult = type === 'disease' && result && isNormalSkin(result);
+  
+  const resultData = result?.data || result;
+  const conditionDisplayName = resultData?.display_name || 
+    actualCondition?.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) || 
+    'Skin Condition';
 
   if (loading) {
     return (
@@ -148,7 +259,7 @@ const ResultsPage = () => {
     <main className="page-main">
       <div className="page-header">
         <h1 className="page-title">
-          {meta.icon} {meta.title}
+          🔬Skin Disease Detection Results
         </h1>
         <button 
           onClick={handleForceRefresh}
@@ -170,15 +281,91 @@ const ResultsPage = () => {
           <ResultCard result={{ type, data: result }} />
         </div>
 
-        <div className="action-buttons" style={{ display: 'flex', gap: '12px', marginTop: '32px' }}>
-          <button className="btn btn-secondary" onClick={handleBack}>
-            ← Back
-          </button>
-          <button className="btn btn-primary" onClick={handleNewAnalysis}>
-            New Analysis
-          </button>
+        <div className="action-buttons" style={{ marginTop: '32px' }}>
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <button className="btn btn-secondary" onClick={handleBack}>
+              ← Back
+            </button>
+            <button className="btn btn-primary" onClick={handleNewAnalysis}>
+              New Analysis
+            </button>
+          </div>
+
+          {isSkinConditionResult && (
+            <div style={{ 
+              marginTop: '20px', 
+              paddingTop: '20px', 
+              borderTop: '1px solid #e5e7eb',
+              textAlign: 'center'
+            }}>
+              <button
+                onClick={handleFindSpecialists}
+                className="btn-find-specialists"
+                style={{
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '12px 24px',
+                  borderRadius: '12px',
+                  fontSize: '1rem',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                  boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+                }}
+              >
+                <span style={{ fontSize: '1.2rem' }}>🔬</span>
+                Find Nearby Skin Specialists
+                <span style={{ fontSize: '1.2rem' }}>📍</span>
+              </button>
+              
+              {actualCondition === 'melanoma' && (
+                <div style={{
+                  marginTop: '12px',
+                  padding: '12px',
+                  background: '#fef2f2',
+                  borderRadius: '8px',
+                  borderLeft: '4px solid #dc2626'
+                }}>
+                  <p style={{ margin: 0, fontSize: '0.85rem', color: '#991b1b' }}>
+                    ⚠️ <strong>High Risk Condition Detected</strong> - We strongly recommend consulting a dermatologist immediately.
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {isNormalResult && (
+            <div style={{
+              marginTop: '20px',
+              padding: '16px',
+              background: '#f0fdf4',
+              borderRadius: '12px',
+              textAlign: 'center',
+              border: '1px solid #bbf7d0'
+            }}>
+              <span style={{ fontSize: '1.2rem' }}>✅</span>
+              <p style={{ margin: '8px 0 0', color: '#166534' }}>
+                Your skin appears healthy! Continue with your regular skincare routine.
+              </p>
+            </div>
+          )}
         </div>
       </div>
+
+      <style jsx="true">{`
+        .btn-find-specialists {
+          animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.02); }
+        }
+        .btn-find-specialists:hover { animation: none; }
+      `}</style>
     </main>
   );
 };

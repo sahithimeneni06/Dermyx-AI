@@ -2,8 +2,4 @@ venv/
 backend/venv/
 __pycache__/
 *.pyc
-*.h5
-*.pkl
-*.pth
-*.json
 backend/uploads/

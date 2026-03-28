@@ -1,0 +1,1472 @@
+[
+  {
+    "ingredient": "Aqua",
+    "rating": "Good",
+    "description": "Solvent used as a base or penetration enhancer in formulations."
+  },
+  {
+    "ingredient": "Water",
+    "rating": "Good",
+    "description": "Solvent used as a base or penetration enhancer in formulations."
+  },
+  {
+    "ingredient": "Ethoxydiglycol",
+    "rating": "Good",
+    "description": "Solvent used as a base or penetration enhancer in formulations."
+  },
+  {
+    "ingredient": "Dimethyl Isosorbide",
+    "rating": "Good",
+    "description": "Solvent used as a base or penetration enhancer in formulations."
+  },
+  {
+    "ingredient": "Butylene Glycol",
+    "rating": "Good",
+    "description": "Solvent used as a base or penetration enhancer in formulations."
+  },
+  {
+    "ingredient": "Propanediol",
+    "rating": "Good",
+    "description": "Solvent used as a base or penetration enhancer in formulations."
+  },
+  {
+    "ingredient": "Pentylene Glycol",
+    "rating": "Good",
+    "description": "Solvent used as a base or penetration enhancer in formulations."
+  },
+  {
+    "ingredient": "Hexylene Glycol",
+    "rating": "Good",
+    "description": "Solvent used as a base or penetration enhancer in formulations."
+  },
+  {
+    "ingredient": "Isohexadecane",
+    "rating": "Good",
+    "description": "Emollient that softens skin and improves product feel."
+  },
+  {
+    "ingredient": "Isododecane",
+    "rating": "Good",
+    "description": "Emollient that softens skin and improves product feel."
+  },
+  {
+    "ingredient": "Isodecyl Neopentanoate",
+    "rating": "Good",
+    "description": "Emollient that softens skin and improves product feel."
+  },
+  {
+    "ingredient": "C13-15 Alkane",
+    "rating": "Good",
+    "description": "Emollient that softens skin and improves product feel."
+  },
+  {
+    "ingredient": "Hydrogenated Polyisobutene",
+    "rating": "Good",
+    "description": "Emollient that softens skin and improves product feel."
+  },
+  {
+    "ingredient": "Squalane",
+    "rating": "Good",
+    "description": "Emollient that softens skin and improves product feel."
+  },
+  {
+    "ingredient": "Caprylic/Capric Triglyceride",
+    "rating": "Good",
+    "description": "Emollient that softens skin and improves product feel."
+  },
+  {
+    "ingredient": "Dimethicone",
+    "rating": "Good",
+    "description": "Silicone ingredient used for slip, blurring, or barrier effects."
+  },
+  {
+    "ingredient": "Dimethicone/Vinyl Dimethicone Crosspolymer",
+    "rating": "Good",
+    "description": "Silicone ingredient used for slip, blurring, or barrier effects."
+  },
+  {
+    "ingredient": "Dimethicone/Bis-Isobutyl PPG-20 Crosspolymer",
+    "rating": "Good",
+    "description": "Silicone ingredient used for slip, blurring, or barrier effects."
+  },
+  {
+    "ingredient": "Polysilicone-11",
+    "rating": "Good",
+    "description": "Silicone ingredient used for slip, blurring, or barrier effects."
+  },
+  {
+    "ingredient": "Cyclopentasiloxane",
+    "rating": "Good",
+    "description": "Silicone ingredient used for slip, blurring, or barrier effects."
+  },
+  {
+    "ingredient": "Dimethiconol",
+    "rating": "Good",
+    "description": "Silicone ingredient used for slip, blurring, or barrier effects."
+  },
+  {
+    "ingredient": "Amodimethicone",
+    "rating": "Good",
+    "description": "Silicone ingredient used for slip, blurring, or barrier effects."
+  },
+  {
+    "ingredient": "Hydroxyethyl Acrylate/Sodium Acryloyldimethyl Taurate Copolymer",
+    "rating": "Average",
+    "description": "Polymer used to stabilize, thicken, or texture formulations."
+  },
+  {
+    "ingredient": "Acrylates/C10-30 Alkyl Acrylate Crosspolymer",
+    "rating": "Average",
+    "description": "Polymer used to stabilize, thicken, or texture formulations."
+  },
+  {
+    "ingredient": "Sodium Polyacrylate",
+    "rating": "Average",
+    "description": "Polymer used to stabilize, thicken, or texture formulations."
+  },
+  {
+    "ingredient": "Carbomer",
+    "rating": "Average",
+    "description": "Polymer used to stabilize, thicken, or texture formulations."
+  },
+  {
+    "ingredient": "Xanthan Gum",
+    "rating": "Average",
+    "description": "Polymer used to stabilize, thicken, or texture formulations."
+  },
+  {
+    "ingredient": "Sclerotium Gum",
+    "rating": "Average",
+    "description": "Polymer used to stabilize, thicken, or texture formulations."
+  },
+  {
+    "ingredient": "Isoceteth-20",
+    "rating": "Average",
+    "description": "Emulsifier or surfactant used to blend oil and water."
+  },
+  {
+    "ingredient": "Polyglyceryl-6 Distearate",
+    "rating": "Average",
+    "description": "Emulsifier or surfactant used to blend oil and water."
+  },
+  {
+    "ingredient": "PEG-7 Glyceryl Cocoate",
+    "rating": "Average",
+    "description": "Emulsifier or surfactant used to blend oil and water."
+  },
+  {
+    "ingredient": "Cetearyl Alcohol",
+    "rating": "Average",
+    "description": "Emulsifier or surfactant used to blend oil and water."
+  },
+  {
+    "ingredient": "Glyceryl Stearate",
+    "rating": "Average",
+    "description": "Emulsifier or surfactant used to blend oil and water."
+  },
+  {
+    "ingredient": "PEG-100 Stearate",
+    "rating": "Average",
+    "description": "Emulsifier or surfactant used to blend oil and water."
+  },
+  {
+    "ingredient": "Trisodium Ethylenediamine Disuccinate",
+    "rating": "Average",
+    "description": "Chelating or buffering agent used for formulation stability."
+  },
+  {
+    "ingredient": "Disodium EDTA",
+    "rating": "Average",
+    "description": "Chelating or buffering agent used for formulation stability."
+  },
+  {
+    "ingredient": "Sodium Phytate",
+    "rating": "Average",
+    "description": "Chelating or buffering agent used for formulation stability."
+  },
+  {
+    "ingredient": "Citric Acid",
+    "rating": "Average",
+    "description": "Chelating or buffering agent used for formulation stability."
+  },
+  {
+    "ingredient": "Sodium Citrate",
+    "rating": "Average",
+    "description": "Chelating or buffering agent used for formulation stability."
+  },
+  {
+    "ingredient": "Phenoxyethanol",
+    "rating": "Average",
+    "description": "Preservative used to prevent microbial growth."
+  },
+  {
+    "ingredient": "Ethylhexylglycerin",
+    "rating": "Average",
+    "description": "Preservative used to prevent microbial growth."
+  },
+  {
+    "ingredient": "Caprylyl Glycol",
+    "rating": "Average",
+    "description": "Preservative used to prevent microbial growth."
+  },
+  {
+    "ingredient": "Chlorphenesin",
+    "rating": "Average",
+    "description": "Preservative used to prevent microbial growth."
+  },
+  {
+    "ingredient": "Sodium Benzoate",
+    "rating": "Average",
+    "description": "Preservative used to prevent microbial growth."
+  },
+  {
+    "ingredient": "Potassium Sorbate",
+    "rating": "Average",
+    "description": "Preservative used to prevent microbial growth."
+  },
+  {
+    "ingredient": "Niacinamide",
+    "rating": "Best",
+    "description": "Active ingredient providing direct skin benefits."
+  },
+  {
+    "ingredient": "Azelaic Acid",
+    "rating": "Best",
+    "description": "Active ingredient providing direct skin benefits."
+  },
+  {
+    "ingredient": "Panthenol",
+    "rating": "Best",
+    "description": "Active ingredient providing direct skin benefits."
+  },
+  {
+    "ingredient": "Allantoin",
+    "rating": "Best",
+    "description": "Active ingredient providing direct skin benefits."
+  },
+  {
+    "ingredient": "Zinc PCA",
+    "rating": "Best",
+    "description": "Active ingredient providing direct skin benefits."
+  },
+  {
+    "ingredient": "Alpha Arbutin",
+    "rating": "Best",
+    "description": "Active ingredient providing direct skin benefits."
+  },
+  {
+    "ingredient": "Tranexamic Acid",
+    "rating": "Best",
+    "description": "Active ingredient providing direct skin benefits."
+  },
+  {
+    "ingredient": "Ceramide NP",
+    "rating": "Best",
+    "description": "Active ingredient providing direct skin benefits."
+  },
+  {
+    "ingredient": "Ceramide AP",
+    "rating": "Best",
+    "description": "Active ingredient providing direct skin benefits."
+  },
+  {
+    "ingredient": "Ceramide EOP",
+    "rating": "Best",
+    "description": "Active ingredient providing direct skin benefits."
+  },
+  {
+    "ingredient": "Centella Asiatica Leaf Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Centella Asiatica Root Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Centella Asiatica Flower Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Centella Asiatica Seed Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Camellia Sinensis Leaf Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Camellia Sinensis Root Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Camellia Sinensis Flower Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Camellia Sinensis Seed Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Aloe Barbadensis Leaf Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Aloe Barbadensis Root Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Aloe Barbadensis Flower Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Aloe Barbadensis Seed Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Glycyrrhiza Glabra Leaf Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Glycyrrhiza Glabra Root Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Glycyrrhiza Glabra Flower Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Glycyrrhiza Glabra Seed Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Calendula Officinalis Leaf Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Calendula Officinalis Root Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Calendula Officinalis Flower Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Calendula Officinalis Seed Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Chamomilla Recutita Leaf Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Chamomilla Recutita Root Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Chamomilla Recutita Flower Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Chamomilla Recutita Seed Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Panax Ginseng Leaf Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Panax Ginseng Root Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Panax Ginseng Flower Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Panax Ginseng Seed Extract",
+    "rating": "Good",
+    "description": "Botanical extract commonly used for soothing or antioxidant properties."
+  },
+  {
+    "ingredient": "Hyaluronic Acid",
+    "rating": "Best",
+    "description": "Humectant that attracts and retains moisture in the skin."
+  },
+  {
+    "ingredient": "Glycerin",
+    "rating": "Best",
+    "description": "Gold-standard humectant that supports long-term hydration."
+  },
+  {
+    "ingredient": "Centella Asiatica Extract",
+    "rating": "Best",
+    "description": "Calming botanical that supports skin repair."
+  },
+  {
+    "ingredient": "Green Tea Extract",
+    "rating": "Best",
+    "description": "Antioxidant-rich extract that protects from environmental stress."
+  },
+  {
+    "ingredient": "Bakuchiol",
+    "rating": "Best",
+    "description": "Plant-derived retinol alternative that improves skin texture."
+  },
+  {
+    "ingredient": "Sodium PCA",
+    "rating": "Good",
+    "description": "Natural moisturizing factor component."
+  },
+  {
+    "ingredient": "Betaine",
+    "rating": "Good",
+    "description": "Humectant that helps maintain hydration balance."
+  },
+  {
+    "ingredient": "Licorice Root Extract",
+    "rating": "Good",
+    "description": "Soothing botanical that helps brighten skin tone."
+  },
+  {
+    "ingredient": "Oat Kernel Extract",
+    "rating": "Good",
+    "description": "Calms irritation and supports sensitive skin."
+  },
+  {
+    "ingredient": "Shea Butter",
+    "rating": "Good",
+    "description": "Rich emollient that softens and conditions skin."
+  },
+  {
+    "ingredient": "Arginine",
+    "rating": "Good",
+    "description": "Amino acid that supports skin hydration."
+  },
+  {
+    "ingredient": "Tocopherol",
+    "rating": "Good",
+    "description": "Vitamin E antioxidant that protects skin lipids."
+  },
+  {
+    "ingredient": "Polysorbate 20",
+    "rating": "Average",
+    "description": "Solubilizer used in cosmetic formulations."
+  },
+  {
+    "ingredient": "Sodium Hydroxide",
+    "rating": "Average",
+    "description": "pH adjuster used in very small amounts."
+  },
+  {
+    "ingredient": "Denatured Alcohol",
+    "rating": "Bad",
+    "description": "Can disrupt the skin barrier and increase irritation."
+  },
+  {
+    "ingredient": "Fragrance",
+    "rating": "Bad",
+    "description": "Mixture of aromatic compounds that may cause irritation."
+  },
+  {
+    "ingredient": "Essential Oil",
+    "rating": "Bad",
+    "description": "Volatile plant oils with sensitization risk."
+  },
+  {
+    "ingredient": "DMDM Hydantoin",
+    "rating": "Bad",
+    "description": "Formaldehyde-releasing preservative."
+  },
+  {
+    "ingredient": "Imidazolidinyl Urea",
+    "rating": "Bad",
+    "description": "Preservative with sensitization potential."
+  },
+  {
+    "ingredient": "Tea Tree Oil",
+    "rating": "Bad",
+    "description": "Essential oil that may irritate sensitive skin."
+  },
+  {
+    "ingredient": "Lavender Oil",
+    "rating": "Bad",
+    "description": "Fragrant oil with sensitization risk."
+  },
+  {
+    "ingredient": "Limonene",
+    "rating": "Bad",
+    "description": "Fragrance component that can oxidize and irritate skin."
+  },
+  {
+    "ingredient": "Linalool",
+    "rating": "Bad",
+    "description": "Fragrance compound associated with irritation."
+  },
+  {
+    "ingredient": "Camellia Sinensis Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Camellia Sinensis Seed Oil",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Camellia Sinensis Kernel Oil",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Camellia Sinensis Fruit Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Camellia Sinensis Ferment",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Chamomilla Recutita Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Chamomilla Recutita Seed Oil",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Chamomilla Recutita Kernel Oil",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Chamomilla Recutita Fruit Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Chamomilla Recutita Ferment",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Calendula Officinalis Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Calendula Officinalis Seed Oil",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Calendula Officinalis Kernel Oil",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Calendula Officinalis Fruit Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Calendula Officinalis Ferment",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Aloe Barbadensis Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Aloe Barbadensis Seed Oil",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Aloe Barbadensis Kernel Oil",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Aloe Barbadensis Fruit Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Aloe Barbadensis Ferment",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Centella Asiatica Seed Oil",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Centella Asiatica Kernel Oil",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Centella Asiatica Fruit Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Centella Asiatica Ferment",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Panax Ginseng Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Panax Ginseng Seed Oil",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Panax Ginseng Kernel Oil",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Panax Ginseng Fruit Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Panax Ginseng Ferment",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Glycyrrhiza Glabra Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Glycyrrhiza Glabra Seed Oil",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Glycyrrhiza Glabra Kernel Oil",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Glycyrrhiza Glabra Fruit Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Glycyrrhiza Glabra Ferment",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Rosmarinus Officinalis Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Rosmarinus Officinalis Leaf Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Rosmarinus Officinalis Root Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Rosmarinus Officinalis Flower Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Rosmarinus Officinalis Seed Oil",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Rosmarinus Officinalis Kernel Oil",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Rosmarinus Officinalis Fruit Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Rosmarinus Officinalis Ferment",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Salvia Officinalis Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Salvia Officinalis Leaf Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Salvia Officinalis Root Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Salvia Officinalis Flower Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Salvia Officinalis Seed Oil",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Salvia Officinalis Kernel Oil",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Salvia Officinalis Fruit Extract",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "Salvia Officinalis Ferment",
+    "rating": "Good",
+    "description": "Plant-derived cosmetic ingredient used for skin-conditioning benefits."
+  },
+  {
+    "ingredient": "3-O Ethyl Ascorbic Acid",
+    "rating": "Best",
+    "description": "Highly stable vitamin C derivative that improves skin tone and firmness."
+  },
+  {
+    "ingredient": "Acetyl Glucosamine",
+    "rating": "Best",
+    "description": "Antioxidant that helps fade discolorations and supports hyaluronic acid production."
+  },
+  {
+    "ingredient": "Active Ingredient",
+    "rating": "Best",
+    "description": "Indicates an ingredient approved to perform a specific skin care function."
+  },
+  {
+    "ingredient": "AHA",
+    "rating": "Best",
+    "description": "Alpha hydroxy acid that exfoliates skin and improves tone and texture."
+  },
+  {
+    "ingredient": "Alpha-Arbutin",
+    "rating": "Best",
+    "description": "Potent antioxidant used to reduce the appearance of dark spots."
+  },
+  {
+    "ingredient": "Alpha Hydroxy Acid",
+    "rating": "Best",
+    "description": "Exfoliating acid that improves uneven skin tone and signs of aging."
+  },
+  {
+    "ingredient": "Ammonium Glycolate",
+    "rating": "Best",
+    "description": "Synthetic form of glycolic acid used as a pH adjuster and exfoliant."
+  },
+  {
+    "ingredient": "Arbutin",
+    "rating": "Best",
+    "description": "Antioxidant that helps even out skin tone and fade discolorations."
+  },
+  {
+    "ingredient": "Arbutus Unedo Fruit Extract",
+    "rating": "Best",
+    "description": "Antioxidant fruit extract with dark spot-fighting properties."
+  },
+  {
+    "ingredient": "Arctostaphylos Uva Ursi Leaf Extract",
+    "rating": "Best",
+    "description": "Bearberry extract with antioxidant and tone-evening benefits."
+  },
+  {
+    "ingredient": "Ascorbic Acid",
+    "rating": "Best",
+    "description": "Pure vitamin C with antioxidant, brightening, and anti-aging benefits."
+  },
+  {
+    "ingredient": "Ascorbyl Glucoside",
+    "rating": "Best",
+    "description": "Stable vitamin C derivative that brightens skin."
+  },
+  {
+    "ingredient": "Ascorbyl Palmitate",
+    "rating": "Best",
+    "description": "Oil-soluble vitamin C ester with antioxidant benefits."
+  },
+  {
+    "ingredient": "Ascorbyl Tetraisopalmitate",
+    "rating": "Best",
+    "description": "Highly stable vitamin C derivative that supports skin firmness."
+  },
+  {
+    "ingredient": "Aspergillus Ferment",
+    "rating": "Best",
+    "description": "Fermented extract with antioxidant and brightening benefits."
+  },
+  {
+    "ingredient": "Azelaoyl Bis-Dipeptide-10",
+    "rating": "Best",
+    "description": "Synthetic peptide derived from azelaic acid with brightening benefits."
+  },
+  {
+    "ingredient": "Azelex",
+    "rating": "Best",
+    "description": "Prescription azelaic acid treatment."
+  },
+  {
+    "ingredient": "Bacillus/Soybean Ferment Extract",
+    "rating": "Best",
+    "description": "Fermented extract with antioxidant and skin conditioning properties."
+  },
+  {
+    "ingredient": "Beta Hydroxy Acid",
+    "rating": "Best",
+    "description": "Oil-soluble exfoliant that unclogs pores and smooths skin."
+  },
+  {
+    "ingredient": "BHA (Beta Hydroxy Acid)",
+    "rating": "Best",
+    "description": "Commonly known as salicylic acid."
+  },
+  {
+    "ingredient": "Bilberry Extract",
+    "rating": "Best",
+    "description": "Antioxidant-rich fruit extract."
+  },
+  {
+    "ingredient": "Capryloyl Salicylic Acid",
+    "rating": "Best",
+    "description": "Salicylic acid derivative used for gentle exfoliation."
+  },
+  {
+    "ingredient": "Cetyl Tranexamate Mesylate",
+    "rating": "Best",
+    "description": "Tranexamic acid derivative for addressing discolorations."
+  },
+  {
+    "ingredient": "Coffea Arabica (Coffee) Fruit Extract",
+    "rating": "Best",
+    "description": "Coffee fruit extract with anti-aging benefits."
+  },
+  {
+    "ingredient": "Coffea Arabica Seed Extract",
+    "rating": "Best",
+    "description": "Coffee seed extract with skin tone-evening benefits."
+  },
+  {
+    "ingredient": "D-Alpha-Tocopherol",
+    "rating": "Best",
+    "description": "Most bioavailable form of vitamin E."
+  },
+  {
+    "ingredient": "Dimethylmethoxy Chromanol",
+    "rating": "Best",
+    "description": "Potent antioxidant similar to vitamin E."
+  },
+  {
+    "ingredient": "Dipotassium Glycyrrhizinate",
+    "rating": "Best",
+    "description": "Licorice-derived ingredient with soothing and brightening properties."
+  },
+  {
+    "ingredient": "Ectoin",
+    "rating": "Best",
+    "description": "Amino acid derivative that protects skin from environmental stress."
+  },
+  {
+    "ingredient": "Ergothioneine",
+    "rating": "Best",
+    "description": "Mushroom-derived antioxidant that strengthens skin defenses."
+  },
+  {
+    "ingredient": "Gallic Acid",
+    "rating": "Best",
+    "description": "Phenolic antioxidant with calming and brightening effects."
+  },
+  {
+    "ingredient": "Ganoderma Lucidum (Mushroom) Stem Extract",
+    "rating": "Best",
+    "description": "Reishi mushroom extract with antioxidant benefits."
+  },
+  {
+    "ingredient": "Glabridin",
+    "rating": "Best",
+    "description": "Licorice-derived antioxidant that helps fade dark spots."
+  },
+  {
+    "ingredient": "Gluconolactone",
+    "rating": "Best",
+    "description": "Polyhydroxy acid that gently exfoliates and hydrates."
+  },
+  {
+    "ingredient": "Glyceryl Ascorbate",
+    "rating": "Best",
+    "description": "Moisturizing vitamin C derivative."
+  },
+  {
+    "ingredient": "Glycolic Acid",
+    "rating": "Best",
+    "description": "Well-researched AHA that renews skin surface."
+  },
+  {
+    "ingredient": "Glycyrrhetic Acid",
+    "rating": "Best",
+    "description": "Licorice-derived soothing ingredient."
+  },
+  {
+    "ingredient": "Glycyrrhetinic Acid",
+    "rating": "Best",
+    "description": "Antioxidant compound from licorice."
+  },
+  {
+    "ingredient": "Glycyrrhiza Glabra",
+    "rating": "Best",
+    "description": "Licorice plant with soothing benefits."
+  },
+  {
+    "ingredient": "Glycyrrhiza Glabra (Licorice) Root Extract",
+    "rating": "Best",
+    "description": "Licorice extract that fades dark spots."
+  },
+  {
+    "ingredient": "Hexanoyl Dipeptide-3 Norleucine Acetate",
+    "rating": "Best",
+    "description": "Peptide that promotes gentle exfoliation."
+  },
+  {
+    "ingredient": "Hexylresorcinol",
+    "rating": "Best",
+    "description": "Antioxidant that improves uneven skin tone."
+  },
+  {
+    "ingredient": "Hydrolyzed Rice Protein",
+    "rating": "Best",
+    "description": "Conditioning protein with antioxidant benefits."
+  },
+  {
+    "ingredient": "Hydroquinone",
+    "rating": "Best",
+    "description": "Gold-standard ingredient for fading hyperpigmentation."
+  },
+  {
+    "ingredient": "Hydroxypinacolone Retinoate",
+    "rating": "Best",
+    "description": "Gentle retinoid that reduces fine lines and wrinkles."
+  },
+  {
+    "ingredient": "Kudzu Root",
+    "rating": "Best",
+    "description": "Source of isoflavones that provide antioxidant and anti-aging benefits."
+  },
+  {
+    "ingredient": "Lactic Acid",
+    "rating": "Best",
+    "description": "Exfoliating acid that removes dead skin cells and hydrates skin."
+  },
+  {
+    "ingredient": "Lactobionic Acid",
+    "rating": "Best",
+    "description": "Polyhydroxy acid with exfoliating and antioxidant benefits."
+  },
+  {
+    "ingredient": "Lady's Thistle (Milk Thistle) Extract",
+    "rating": "Best",
+    "description": "Plant extract with antioxidant and protective properties."
+  },
+  {
+    "ingredient": "L-Ascorbic Acid",
+    "rating": "Best",
+    "description": "Potent form of vitamin C with antioxidant and soothing benefits."
+  },
+  {
+    "ingredient": "Licorice Extract",
+    "rating": "Best",
+    "description": "Antioxidant extract that soothes skin and fades dark spots."
+  },
+  {
+    "ingredient": "Licorice Root",
+    "rating": "Best",
+    "description": "Plant extract with antioxidant and tone-evening properties."
+  },
+  {
+    "ingredient": "Lysophosphatidylethanolamine",
+    "rating": "Best",
+    "description": "Phospholipid that hydrates and helps fade discoloration."
+  },
+  {
+    "ingredient": "Malic Acid",
+    "rating": "Best",
+    "description": "Fruit-derived AHA used as an exfoliant and pH adjuster."
+  },
+  {
+    "ingredient": "Malpighia Glabra (Acerola) Fruit Juice",
+    "rating": "Best",
+    "description": "Vitamin C-rich fruit extract with anti-aging benefits."
+  },
+  {
+    "ingredient": "Mandelic Acid",
+    "rating": "Best",
+    "description": "Gentle AHA that exfoliates and improves skin tone."
+  },
+  {
+    "ingredient": "Mulberry Extract",
+    "rating": "Best",
+    "description": "Plant extract that helps brighten uneven skin tone."
+  },
+  {
+    "ingredient": "Mushroom Extract",
+    "rating": "Best",
+    "description": "Extract that improves hydration, tone, and barrier health."
+  },
+  {
+    "ingredient": "Myristyl Nicotinate",
+    "rating": "Best",
+    "description": "Vitamin B3 derivative with skin-conditioning properties."
+  },
+  {
+    "ingredient": "Oleyl Adapalenate",
+    "rating": "Best",
+    "description": "Retinoid precursor that smooths texture and refines pores."
+  },
+  {
+    "ingredient": "PHA",
+    "rating": "Best",
+    "description": "Polyhydroxy acids such as gluconolactone and lactobionic acid."
+  },
+  {
+    "ingredient": "Phloretin",
+    "rating": "Best",
+    "description": "Apple-derived antioxidant that improves skin tone."
+  },
+  {
+    "ingredient": "Phosphatidylethanolamine",
+    "rating": "Best",
+    "description": "Phospholipid that hydrates and supports skin tone."
+  },
+  {
+    "ingredient": "Polygonum Bistorta Root Extract",
+    "rating": "Best",
+    "description": "Antioxidant plant extract that improves radiance."
+  },
+  {
+    "ingredient": "Polyhydroxy Acid",
+    "rating": "Best",
+    "description": "Gentle exfoliating acid category that hydrates skin."
+  },
+  {
+    "ingredient": "Potassium Azeloyl Diglycinate",
+    "rating": "Best",
+    "description": "Azelaic acid derivative that soothes and brightens skin."
+  },
+  {
+    "ingredient": "Pueraria Lobata",
+    "rating": "Best",
+    "description": "Kudzu plant with antioxidant and anti-aging properties."
+  },
+  {
+    "ingredient": "Pueraria Lobata Root Extract",
+    "rating": "Best",
+    "description": "Kudzu root extract rich in isoflavones."
+  },
+  {
+    "ingredient": "Rambutan",
+    "rating": "Best",
+    "description": "Tropical fruit extract with anti-aging benefits."
+  },
+  {
+    "ingredient": "Resveratrol",
+    "rating": "Best",
+    "description": "Potent antioxidant that reduces discoloration."
+  },
+  {
+    "ingredient": "Retinal",
+    "rating": "Best",
+    "description": "Vitamin A derivative with strong anti-aging benefits."
+  },
+  {
+    "ingredient": "Retinoids",
+    "rating": "Best",
+    "description": "Vitamin A derivatives that promote skin renewal."
+  },
+  {
+    "ingredient": "Retinyl Propionate",
+    "rating": "Best",
+    "description": "Stable vitamin A derivative with anti-aging benefits."
+  },
+  {
+    "ingredient": "Salicylic Acid",
+    "rating": "Best",
+    "description": "Oil-soluble BHA that exfoliates and unclogs pores."
+  },
+  {
+    "ingredient": "Silybum Marianum Extract",
+    "rating": "Best",
+    "description": "Milk thistle extract with antioxidant benefits."
+  },
+  {
+    "ingredient": "Silybum Marianum Fruit Extract",
+    "rating": "Best",
+    "description": "Plant extract with calming and antioxidant properties."
+  },
+  {
+    "ingredient": "Silybum Marianum Seed Oil",
+    "rating": "Best",
+    "description": "Seed oil that protects collagen and elastin."
+  },
+  {
+    "ingredient": "Sodium Ascorbate",
+    "rating": "Best",
+    "description": "Vitamin C salt that brightens skin tone."
+  },
+  {
+    "ingredient": "Sodium Ascorbyl Phosphate",
+    "rating": "Best",
+    "description": "Stable vitamin C derivative that firms and brightens skin."
+  },
+  {
+    "ingredient": "Soy Extract",
+    "rating": "Best",
+    "description": "Antioxidant extract derived from soybeans."
+  },
+  {
+    "ingredient": "Soy Isoflavones",
+    "rating": "Best",
+    "description": "Soy-derived compounds that improve elasticity and hydration."
+  },
+  {
+    "ingredient": "Stearyl Glycyrrhetinate",
+    "rating": "Best",
+    "description": "Licorice-derived ingredient with soothing properties."
+  },
+  {
+    "ingredient": "Tartaric Acid",
+    "rating": "Best",
+    "description": "AHA that exfoliates and stabilizes pH."
+  },
+  {
+    "ingredient": "Terminalia Ferdinandiana (Kakadu Plum) Extract",
+    "rating": "Best",
+    "description": "Vitamin C-rich fruit extract with anti-aging benefits."
+  },
+  {
+    "ingredient": "Tetrahexyldecyl Ascorbate",
+    "rating": "Best",
+    "description": "Highly stable vitamin C derivative."
+  },
+  {
+    "ingredient": "Tetrapeptide-30",
+    "rating": "Best",
+    "description": "Peptide that helps reduce discoloration."
+  },
+  {
+    "ingredient": "Tocotrienols",
+    "rating": "Best",
+    "description": "Vitamin E compounds with strong antioxidant benefits."
+  },
+  {
+    "ingredient": "Turmeric",
+    "rating": "Best",
+    "description": "Plant-derived antioxidant with calming benefits."
+  },
+  {
+    "ingredient": "Urea",
+    "rating": "Best",
+    "description": "Humectant that hydrates and exfoliates dry skin."
+  },
+  {
+    "ingredient": "Vitamin B3",
+    "rating": "Best",
+    "description": "Improves pores, tone, and barrier strength."
+  },
+  {
+    "ingredient": "Vitamin C",
+    "rating": "Best",
+    "description": "Antioxidant that brightens skin and improves signs of aging."
+  },
+  {
+    "ingredient": "Vitamin E",
+    "rating": "Best",
+    "description": "Well-known antioxidant that protects skin."
+  },
+  {
+    "ingredient": "Zerumbone",
+    "rating": "Best",
+    "description": "Ginger-derived antioxidant that reduces dark circles."
+  },
+  {
+    "ingredient": "Aminopropyl Ascorbyl Phosphate",
+    "rating": "Good",
+    "description": "Vitamin C derivative with antioxidant and anti-aging benefits."
+  },
+  {
+    "ingredient": "Amygdalic Acid",
+    "rating": "Good",
+    "description": "Gentle alpha hydroxy acid suitable for sensitive skin."
+  },
+  {
+    "ingredient": "Ananas Sativus Fruit Extract",
+    "rating": "Good",
+    "description": "Pineapple extract with antioxidant and soothing properties."
+  },
+  {
+    "ingredient": "Bentonite",
+    "rating": "Good",
+    "description": "Absorbent clay used for oil control and formulation stability."
+  },
+  {
+    "ingredient": "Coix Lacryma-Jobi Ma-Yuen Seed Extract",
+    "rating": "Good",
+    "description": "Plant extract with antioxidant and brightening benefits."
+  },
+  {
+    "ingredient": "Colostrum",
+    "rating": "Good",
+    "description": "Nutrient-rich extract that protects skin from oxidative stress."
+  },
+  {
+    "ingredient": "Diglucosyl Gallic Acid",
+    "rating": "Good",
+    "description": "Synthetic antioxidant with discoloration-fighting potential."
+  },
+  {
+    "ingredient": "Dilauryl Thiodipropionate",
+    "rating": "Good",
+    "description": "Antioxidant stabilizer used in formulations."
+  },
+  {
+    "ingredient": "Disodium Rutinyl Disulfate",
+    "rating": "Good",
+    "description": "Rutin derivative with antioxidant properties."
+  },
+  {
+    "ingredient": "Enantia Chlorantha Bark Extract",
+    "rating": "Good",
+    "description": "Plant extract with antioxidant and antifungal properties."
+  },
+  {
+    "ingredient": "Galactomyces Ferment Filtrate",
+    "rating": "Good",
+    "description": "Fermented yeast filtrate with soothing and brightening benefits."
+  },
+  {
+    "ingredient": "Kojic Acid",
+    "rating": "Good",
+    "description": "Fermentation by-product used for skin brightening."
+  },
+  {
+    "ingredient": "Kojyl Methylenedioxycinnamate",
+    "rating": "Good",
+    "description": "Kojic acid derivative with antioxidant properties."
+  },
+  {
+    "ingredient": "Lactobacillus/Rice Ferment Filtrate",
+    "rating": "Good",
+    "description": "Fermented rice extract with antioxidant benefits."
+  },
+  {
+    "ingredient": "Lactobacillus Punica Granatum Fruit Ferment Extract",
+    "rating": "Good",
+    "description": "Fermented pomegranate extract with exfoliating benefits."
+  },
+  {
+    "ingredient": "Lilium Candidum Flower Extract",
+    "rating": "Good",
+    "description": "White lily extract with antioxidant properties."
+  },
+  {
+    "ingredient": "Malassezin",
+    "rating": "Good",
+    "description": "Yeast-derived ingredient shown to improve hyperpigmentation."
+  },
+  {
+    "ingredient": "Musa Sapientum Fruit Extract",
+    "rating": "Good",
+    "description": "Banana extract with antioxidant properties."
+  },
+  {
+    "ingredient": "Nelumbo Nucifera Flower Extract",
+    "rating": "Good",
+    "description": "Lotus flower extract with brightening benefits."
+  },
+  {
+    "ingredient": "Octadecenedioic Acid",
+    "rating": "Good",
+    "description": "Plant-derived ingredient that helps interrupt excess melanin."
+  },
+  {
+    "ingredient": "Pentaclethra Macroloba Seed Oil",
+    "rating": "Good",
+    "description": "Hydrating oil with potential brightening benefits."
+  },
+  {
+    "ingredient": "Pentapeptide-18",
+    "rating": "Good",
+    "description": "Neuropeptide that helps reduce expression lines."
+  },
+  {
+    "ingredient": "Phytic Acid",
+    "rating": "Good",
+    "description": "Plant-based antioxidant with mild exfoliating properties."
+  },
+  {
+    "ingredient": "Podocarpus Elatus Fruit Extract",
+    "rating": "Good",
+    "description": "Antioxidant-rich plant extract."
+  },
+  {
+    "ingredient": "Populus Tremuloides Bark Extract",
+    "rating": "Good",
+    "description": "Plant extract with antioxidant and preservative properties."
+  },
+  {
+    "ingredient": "Potassium Methoxysalicylate",
+    "rating": "Good",
+    "description": "Salicylic acid derivative that helps improve dark spots."
+  },
+  {
+    "ingredient": "Prunus Persica (Peach) Leaf Extract",
+    "rating": "Good",
+    "description": "Peach leaf extract with antioxidant properties."
+  },
+  {
+    "ingredient": "Pyrus Communis (Pear) Fruit Extract",
+    "rating": "Good",
+    "description": "Pear fruit extract with antioxidant benefits."
+  },
+  {
+    "ingredient": "Raphanus Sativus Root Extract",
+    "rating": "Good",
+    "description": "Radish root extract rich in phenolic antioxidants."
+  },
+  {
+    "ingredient": "Retinyl Linoleate",
+    "rating": "Good",
+    "description": "Vitamin A ester with anti-aging benefits."
+  },
+  {
+    "ingredient": "Rumex Occidentalis Extract",
+    "rating": "Good",
+    "description": "Plant extract that supports fading hyperpigmentation."
+  },
+  {
+    "ingredient": "Salicornia Herbacea Extract",
+    "rating": "Good",
+    "description": "Saltwater plant extract with antioxidant properties."
+  },
+  {
+    "ingredient": "Scutellaria Baicalensis Root Extract",
+    "rating": "Good",
+    "description": "Chinese skullcap extract with antioxidant benefits."
+  },
+  {
+    "ingredient": "Sophora Angustifolia Root Extract",
+    "rating": "Good",
+    "description": "Plant root extract that helps address discoloration."
+  },
+  {
+    "ingredient": "Spermidine",
+    "rating": "Good",
+    "description": "Longevity-supporting ingredient with anti-aging potential."
+  },
+  {
+    "ingredient": "Spilanthes Acmella Flower Extract",
+    "rating": "Good",
+    "description": "Plant extract with antioxidant properties."
+  },
+  {
+    "ingredient": "Tagetes Erecta Flower Extract",
+    "rating": "Good",
+    "description": "Marigold extract with soothing benefits."
+  },
+  {
+    "ingredient": "Terminalia Arjuna Extract",
+    "rating": "Good",
+    "description": "Plant extract with antioxidant and conditioning properties."
+  },
+  {
+    "ingredient": "Vitamin K",
+    "rating": "Good",
+    "description": "Fat-soluble vitamin with limited topical skin benefits."
+  },
+  {
+    "ingredient": "Bellis Perennis",
+    "rating": "Average",
+    "description": "Daisy extract with antioxidant and tone-evening properties."
+  },
+  {
+    "ingredient": "Cinnamomum Zeylanicum Bark Extract",
+    "rating": "Average",
+    "description": "Cinnamon bark extract with irritation potential."
+  },
+  {
+    "ingredient": "Mucor Miehei Extract",
+    "rating": "Average",
+    "description": "Fungal extract used for enzyme activity."
+  },
+  {
+    "ingredient": "Phenylethyl Resorcinol",
+    "rating": "Average",
+    "description": "Synthetic antioxidant used in brightening products."
+  },
+  {
+    "ingredient": "Raspberry Ketone",
+    "rating": "Bad",
+    "description": "Fragrance component with sensitization risk."
+  },
+  {
+    "ingredient": "Swiftlet Nest Extract",
+    "rating": "Not Rated",
+    "description": "Bird saliva-derived extract with hydrating properties."
+  }
+]

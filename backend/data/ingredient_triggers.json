@@ -1,0 +1,15 @@
+{
+  "Alcohol": ["Rosacea", "Skin Dryness", "Sun Allergy"],
+  "Fragrance": ["Dermatitis", "Contact Dermatitis", "Rosacea"],
+  "Parabens": ["Contact Dermatitis"],
+  "Sulfates": ["Dermatitis", "Atopic Dermatitis"],
+  "Essential Oils": ["Rosacea", "Sensitive Skin"],
+  "Heavy Oils": ["Acne"],
+  "Nickel": ["Contact Dermatitis"],
+
+"Formaldehyde": ["Contact Dermatitis"],
+  "Lanolin": ["Sensitive Skin"],
+  "Propylene Glycol": ["Eczema"],
+  "Coal Tar": ["Photosensitivity"],
+  "Preservatives": ["Dermatitis"]
+}

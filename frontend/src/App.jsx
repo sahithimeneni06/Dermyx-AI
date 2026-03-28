@@ -9,6 +9,7 @@ import SymptomCheckerPage from './pages/SymptomCheckerPage';
 import SkinTonePage from './pages/SkinTonePage';
 import ProductAnalysisPage from './pages/ProductAnalysisPage';
 import ResultsPage from './pages/ResultsPage';
+import NearbyDoctorsPage from './pages/NearbyDoctorsPage';
 import './styles/global.css';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/skin-tone" element={<SkinTonePage />} />
         <Route path="/product-analysis" element={<ProductAnalysisPage />} />
         <Route path="/results/:type" element={<ResultsPage />} />
+        <Route path="/nearby-doctors" element={<NearbyDoctorsPage />} />
       </Routes>
       <Footer />
     </Router>

@@ -1,0 +1,117 @@
+{
+  "products": [
+    {
+      "name": "Gentle Cleansing Lotion",
+      "brand": "Cetaphil",
+      "price": 15.99,
+      "category": "Cleanser",
+      "ingredients": [
+        "Water",
+        "Glycerin",
+        "Cetyl Alcohol",
+        "Propylene Glycol",
+        "Sodium Lauryl Sulfate"
+      ],
+      "safe_for": [
+        "eczema",
+        "dry skin",
+        "sensitive skin"
+      ],
+      "unsafe_for": [
+        "acne",
+        "oily skin"
+      ]
+    },
+    {
+      "name": "Moisturizing Cream",
+      "brand": "Cerave",
+      "price": 18.99,
+      "category": "Moisturizer",
+      "ingredients": [
+        "Water",
+        "Glycerin",
+        "Cetyl Alcohol",
+        "Ceramides",
+        "Niacinamide"
+      ],
+      "safe_for": [
+        "eczema",
+        "dry skin",
+        "psoriasis"
+      ],
+      "unsafe_for": [
+        "acne"
+      ]
+    },
+    {
+      "name": "Acne Treatment Gel",
+      "brand": "Neutrogena",
+      "price": 12.99,
+      "category": "Treatment",
+      "ingredients": [
+        "Water",
+        "Salicylic Acid",
+        "Alcohol",
+        "Glycolic Acid"
+      ],
+      "safe_for": [
+        "acne",
+        "oily skin"
+      ],
+      "unsafe_for": [
+        "eczema",
+        "dry skin",
+        "sensitive skin"
+      ]
+    },
+    {
+      "name": "Soothing Cream",
+      "brand": "La Roche-Posay",
+      "price": 34.99,
+      "category": "Moisturizer",
+      "ingredients": [
+        "Water",
+        "Shea Butter",
+        "Niacinamide",
+        "Glycerin",
+        "Thermal Spring Water"
+      ],
+      "safe_for": [
+        "eczema",
+        "psoriasis",
+        "sensitive skin"
+      ],
+      "unsafe_for": [
+        "acne"
+      ]
+    },
+    {
+      "name": "Calming Lotion",
+      "brand": "Aveeno",
+      "price": 16.99,
+      "category": "Moisturizer",
+      "ingredients": [
+        "Water",
+        "Glycerin",
+        "Colloidal Oatmeal",
+        "Cetyl Alcohol",
+        "Dimethicone"
+      ],
+      "safe_for": [
+        "eczema",
+        "dry skin",
+        "sensitive skin"
+      ],
+      "unsafe_for": []
+    },
+{
+    "name": "UV Protective Sunscreen SPF 50",
+    "brand": "La Roche-Posay",
+    "price": 29.99,
+    "category": "Sunscreen",
+    "ingredients": ["Water", "Titanium Dioxide", "Zinc Oxide", "Glycerin"],
+    "safe_for": ["vitiligo", "melasma", "hyperpigmentation"],
+    "unsafe_for": []
+}
+  ]
+}

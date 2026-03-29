@@ -4,69 +4,70 @@ import { useNavigate } from 'react-router-dom';
 import ImageAnalysis from '../components/ImageAnalysis/ImageAnalysis';
 import './Pages.css';
 
+const DISPLAY_NAMES = {
+  acne: 'Acne',
+  eczema_like: 'Eczema / Dermatitis',
+  fungal: 'Fungal Infection',
+  melanoma: 'Melanoma (Skin Cancer)',
+  vitiligo: 'Vitiligo',
+  normal: 'Normal Skin',
+};
+
+const getDisplayName = (condition) =>
+  DISPLAY_NAMES[condition] ||
+  condition.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+
 const DiseaseDetectionPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Show doctor prompt after results are saved
-  const showDoctorPrompt = (condition, conditionInfo) => {
-    // Use setTimeout to ensure navigation is complete before showing prompt
-    setTimeout(() => {
-      const shouldFindDoctors = window.confirm(
-        `${conditionInfo.display_name} detected.\n\nRisk Level: ${conditionInfo.risk_level}\n\nWould you like to find nearby skin specialists?`
-      );
-      
-      if (shouldFindDoctors) {
-        navigate('/nearby-doctors', {
-          state: {
-            detectedCondition: condition,
-            conditionInfo: conditionInfo,
-            fromPage: 'disease'
-          }
-        });
-      }
-    }, 100);
-  };
-
-  // Single unified handler for results
   const handleResults = (result) => {
     console.log('📊 Disease detection results received:', result);
     setError(null);
 
     try {
-      // Check if result has the expected structure
-      if (!result || !result.condition) {
-        throw new Error('Invalid result structure');
+      if (!result) throw new Error('Invalid result structure');
+
+      // Always derive condition from prediction field — never trust display_name from backend
+      const condition = result.prediction || result.condition || 'unknown';
+      const confidence = result.confidence || 0;
+
+      // Always derive display name from condition — backend's display_name is unreliable
+      const displayName = getDisplayName(condition);
+
+      let riskLevel = 'MODERATE';
+      let requiresDoctor = false;
+      if (condition === 'melanoma') {
+        riskLevel = 'HIGH';
+        requiresDoctor = true;
+      } else if (condition === 'normal') {
+        riskLevel = 'LOW';
+        requiresDoctor = false;
       }
 
-      // Store in localStorage
-      localStorage.setItem('diseaseResult', JSON.stringify(result));
-      localStorage.setItem('latestResult', JSON.stringify(result));
-      console.log('💾 Result stored in localStorage');
+      // Store with corrected display_name (derived from condition, not from backend)
+      const storedResult = {
+        prediction: condition,
+        condition: condition,
+        confidence: confidence,
+        display_name: displayName,
+        risk_level: riskLevel,
+        requires_doctor: requiresDoctor,
+        top3: result.top3 || [],
+        all_probabilities: result.all_probabilities || {},
+        recommendations: result.recommendations || {},
+        model_used: result.model_used || 'efficientnetb0_6class',
+      };
 
-      // Navigate to results page
-      navigate('/results/disease', { 
-        state: { 
-          result: result,
-          fromDetection: true
-        }
+      localStorage.setItem('diseaseResult', JSON.stringify(storedResult));
+      localStorage.setItem('latestResult', JSON.stringify(storedResult));
+      console.log('💾 Result stored in localStorage:', storedResult);
+
+      navigate('/results/disease', {
+        state: { result: storedResult, fromDetection: true },
       });
 
-      // Check if we should show doctor prompt (for non-normal conditions)
-      const condition = result.condition;
-      const conditionInfo = {
-        display_name: result.display_name || result.condition.replace(/_/g, ' '),
-        risk_level: result.recommendations?.risk_level || result.risk_assessment?.level || 'MODERATE',
-        requires_doctor: result.recommendations?.requires_doctor || result.risk_assessment?.requires_doctor || false,
-        confidence: result.confidence
-      };
-      
-      // Show prompt only for actual skin conditions (not normal)
-      if (condition !== 'normal' && condition !== 'unknown') {
-        showDoctorPrompt(condition, conditionInfo);
-      }
-      
       setLoading(false);
     } catch (err) {
       console.error('❌ Error saving results:', err);
@@ -88,28 +89,27 @@ const DiseaseDetectionPage = () => {
           Upload a clear photo for instant AI-powered analysis of skin conditions.
         </p>
         <p className="page-description" style={{ fontSize: '.85rem', color: '#5c7e5f' }}>
-          Detects: Acne, Eczema, Melanoma, Vitiligo, Contact Dermatitis, Urticaria, Fungal Infection, Rash, and Normal skin
+          Detects: Acne, Eczema, Melanoma, Vitiligo, Fungal Infection, and Normal skin
         </p>
       </div>
 
       {error && (
-        <div style={{
-          background: '#fee2e2', 
-          border: '1px solid #fca5a5', 
-          borderRadius: '8px',
-          padding: '12px 16px', 
-          marginBottom: '20px', 
-          color: '#b91c1c',
-        }}>
+        <div
+          style={{
+            background: '#fee2e2',
+            border: '1px solid #fca5a5',
+            borderRadius: '8px',
+            padding: '12px 16px',
+            marginBottom: '20px',
+            color: '#b91c1c',
+          }}
+        >
           ❌ {error}
         </div>
       )}
 
       <div className="page-content">
-        <ImageAnalysis 
-          onResults={handleResults} 
-          onError={handleError} 
-        />
+        <ImageAnalysis onResults={handleResults} onError={handleError} />
       </div>
 
       {loading && (

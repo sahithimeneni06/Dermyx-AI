@@ -12,7 +12,7 @@ const HomePage = () => {
       description: 'Upload a photo of your skin concern for instant AI-powered disease detection and analysis.',
       color: '#c4694f',
       path: '/detect-disease',
-      stats: '75% accuracy',
+      stats: '80% accuracy',
       features: ['Acne detection', 'Eczema analysis', 'Melasma screening', 'Psoriasis identification']
     },
     {
@@ -29,7 +29,7 @@ const HomePage = () => {
       id: 'skintone',
       title: 'Skin Tone Analysis',
       icon: '🎨',
-      description: 'Determine your Fitzpatrick skin type for personalized skincare recommendations.',
+      description: 'Determine your skin tone for personalized skincare recommendations.',
       color: '#d99b6e',
       path: '/skin-tone',
       stats: '2-class classification',
@@ -69,7 +69,7 @@ const HomePage = () => {
           <div className="features-grid">
             {features.map(feature => (
               <Link to={feature.path} key={feature.id} className="feature-card-link">
-                <div className="feature-card" style={{ borderTopColor: feature.color }}>
+                <div className="feature-card" data-color={feature.id} style={{ borderTopColor: feature.color }}>
                   <div className="feature-header">
                     <span className="feature-icon" style={{ background: `${feature.color}20`, color: feature.color }}>
                       {feature.icon}
@@ -90,7 +90,7 @@ const HomePage = () => {
                   
                   <div className="feature-footer">
                     <span className="feature-link" style={{ color: feature.color }}>
-                      Try Now → 
+                      Try Now
                     </span>
                   </div>
                 </div>

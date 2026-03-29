@@ -48,7 +48,7 @@ const Navbar = () => {
         </li>
         <li>
           <Link to="/nearby-doctors" className={isActive('/nearby-doctors')} onClick={closeNav}>
-            📍 Nearby
+            Nearby Doctors
           </Link>
         </li>
       </ul>
